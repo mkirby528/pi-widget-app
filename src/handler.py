@@ -15,35 +15,20 @@ logger = logging.getLogger("pi-app-api")
 
 
 def lambda_handler(event, context):
-    """Sample pure Lambda function
+    try:
+        logger.info(f"Lambda invoked successfully!!")
+        load_dotenv(find_dotenv())
 
-    Parameters
-    ----------
-    event: dict, required
-        API Gateway Lambda Proxy Input Format
+        path = event.get("path")
+        logger.info(f"Recieved request to {path}")
 
-        #api-gateway-simple-proxy-for-lambda-input-format
-        Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
+        if path == PATHS.HEALTH_CHECK:
+            return build_response(200, "SUCCESS")
+        if path == PATHS.GET_WEATHER:
 
-    context: object, required
-        Lambda Context runtime methods and attributes
-
-        Context doc: https://docs.aws.amazon.com/lambda/latest/dg/python-context-object.html
-
-    Returns
-    ------
-    API Gateway Lambda Proxy Output Format: dict
-
-        Return doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
-    """
-    logger.info(f"Lambda invoked successfully!!")
-    load_dotenv(find_dotenv())
-    path = event.get("path")
-    logger.info(f"Recieved request to {path}")
-    if path == PATHS.HEALTH_CHECK:
-        return build_response(200, "SUCCESS")
-    if path == PATHS.GET_WEATHER:
-
-        return build_response(200, get_weather())
-    else:
-        return build_response(404, "Endpoint not found")
+            return build_response(200, get_weather())
+        else:
+            return build_response(404, "Endpoint not found")
+    except Exception as error:
+        logger.error(f"Error encountered: {str(error)}")
+        return build_response(500, str(error))

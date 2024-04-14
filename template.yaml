@@ -1,4 +1,4 @@
-AWSTemplateFormatVersion: '2010-09-09'
+AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 Description: >
   pi-app-api
@@ -11,7 +11,19 @@ Globals:
     # You can add LoggingConfig parameters such as the Logformat, Log Group, and SystemLogLevel or ApplicationLogLevel. Learn more here https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html#sam-function-loggingconfig.
     LoggingConfig:
       LogFormat: JSON
+
 Resources:
+  # Build the API Gateway and setup an API Key
+  ApiGatewayEndpoint:
+    Type: "AWS::Serverless::Api"
+    Properties:
+      StageName: Prod
+      Auth:
+        ApiKeyRequired: true
+        UsagePlan:
+          CreateUsagePlan: PER_API
+          UsagePlanName: GatewayAuthorization
+
   PiAppApiFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
@@ -19,32 +31,25 @@ Resources:
       Handler: handler.lambda_handler
       Runtime: python3.12
       Architectures:
-      - x86_64
+        - x86_64
       Environment:
         Variables:
           OPEN_WEATHER_API_KEY: !Ref OpenWeatherApiKey
           ENV: PROD
       Events:
-        HealthCheck:
-          Type: Api 
-          Properties: 
-            Path: /health
-            Method: get 
-        GetWeather:
-          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+        HttpApiAnyPathAnyMethod:
+          # Wildcard all Paths and Methods (does not include "/")
+          Type: Api
           Properties:
-            Path: /weather
-            Method: get
-
+            RestApiId:
+              Ref: ApiGatewayEndpoint
+            Path: /{proxy+}
+            Method: any      
 Parameters:
   OpenWeatherApiKey:
     Type: String
-    Default : ""
+    Default: ""
     NoEcho: true
-
-    
-
-
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
@@ -52,10 +57,13 @@ Outputs:
   # https://github.com/awslabs/serverless-application-model/blob/master/docs/internals/generated_resources.rst#api
   PiAppApi:
     Description: API Gateway endpoint URL for Prod stage for Hello World function
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+    Value: !Sub "https://${ApiGatewayEndpoint}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
   PiAppApiFunction:
     Description: Pi App Lambda Function ARN
     Value: !GetAtt PiAppApiFunction.Arn
   PiAppApiFunctionIamRole:
     Description: Implicit IAM Role created for Pi App function
     Value: !GetAtt PiAppApiFunctionRole.Arn
+  ApiKey:
+    Description: "You can find your API Key in the AWS console: (Put in the request HEADER as 'x-api-key')"
+    Value: !Sub "https://console.aws.amazon.com/apigateway/home?region=${AWS::Region}#/api-keys/${ApiGatewayEndpointApiKey}"
