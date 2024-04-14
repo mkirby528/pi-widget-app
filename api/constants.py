@@ -12,11 +12,14 @@ class OPEN_WEATHER_PARAMETERS():
     API_KEY = getenv("OPEN_WEATHER_API_KEY")
 
 
+API_BASE_PATH="/api"
 @dataclass
 class PATHS():
-    HEALTH_CHECK = "/health"
-    GET_WEATHER = "/weather"
-    GET_METRO_TIMES = "/metro"
+    HEALTH_CHECK = f"/api/health"
+    GET_WEATHER = f"/api/weather"
+    GET_METRO_TIMES = f"/api/metro"
+
+    
 
 
 @dataclass

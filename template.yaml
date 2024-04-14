@@ -13,7 +13,68 @@ Globals:
       LogFormat: JSON
 
 Resources:
-  # Build the API Gateway and setup an API Key
+  FrontendBucket:    
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: pi-app-ui
+
+  CloudFrontDistribution:
+    Type: AWS::CloudFront::Distribution
+    Properties:
+      DistributionConfig:
+        Origins:
+          - Id: FrontendBucket
+            DomainName: !GetAtt FrontendBucket.RegionalDomainName
+            S3OriginConfig:
+              OriginAccessIdentity: !Sub "origin-access-identity/cloudfront/${CloudFrontOriginAccessIdentity}"
+          - Id: Backend
+            DomainName: !Sub "${ApiGatewayEndpoint}.execute-api.${AWS::Region}.amazonaws.com"
+            OriginPath: "/Prod"
+            CustomOriginConfig:
+              OriginProtocolPolicy: https-only
+        DefaultCacheBehavior:
+          TargetOriginId: FrontendBucket
+          ViewerProtocolPolicy: redirect-to-https
+          ForwardedValues:
+            QueryString: true
+        CacheBehaviors:
+          - TargetOriginId: Backend
+            PathPattern: "api/*"
+            DefaultTTL: 0
+            MinTTL: 0
+            MaxTTL: 0
+            ViewerProtocolPolicy: https-only
+            AllowedMethods: [GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE]
+            ForwardedValues:
+              QueryString: true
+        Enabled: true
+        DefaultRootObject: index.html
+
+  FrontendBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      PolicyDocument:
+        Id: MyPolicy
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal: 
+              CanonicalUser: !GetAtt CloudFrontOriginAccessIdentity.S3CanonicalUserId
+            Action: 's3:GetObject'
+            Resource: !Sub
+              - 'arn:aws:s3:::${Bucket}/*'
+              - Bucket: !Ref FrontendBucket
+      Bucket: !Ref FrontendBucket
+          
+  CloudFrontOriginAccessIdentity:
+    Type: AWS::CloudFront::CloudFrontOriginAccessIdentity
+    Properties: 
+      CloudFrontOriginAccessIdentityConfig: 
+        Comment: CloudFront access identity   
+
+
+  # Build the API Gateway 
+
   ApiGatewayEndpoint:
     Type: "AWS::Serverless::Api"
     Properties:
@@ -25,7 +86,7 @@ Resources:
   PiAppApiFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: src/
+      CodeUri: api/
       Handler: handler.lambda_handler
       Runtime: python3.12
       Architectures:
@@ -66,3 +127,5 @@ Outputs:
   PiAppApiFunctionIamRole:
     Description: Implicit IAM Role created for Pi App function
     Value: !GetAtt PiAppApiFunctionRole.Arn
+  Website:
+    Value: !GetAtt CloudFrontDistribution.DomainName
