@@ -16,9 +16,11 @@ class OPEN_WEATHER_PARAMETERS():
 class PATHS():
     HEALTH_CHECK = "/health"
     GET_WEATHER = "/weather"
+    GET_METRO_TIMES = "/metro"
 
 
 @dataclass
 class API_ENDPOINTS():
     OPEN_WEATHER = f"https://api.openweathermap.org/data/3.0/onecall?lat={
         OPEN_WEATHER_PARAMETERS.LATTITUDE}&lon={OPEN_WEATHER_PARAMETERS.LONGITUDE}&appid={OPEN_WEATHER_PARAMETERS.API_KEY}&exclude={OPEN_WEATHER_PARAMETERS.EXCLUDE}&units={OPEN_WEATHER_PARAMETERS.UNITS}"
+    WMATA = f"https://api.wmata.com/StationPrediction.svc/json/GetPrediction/C05"
