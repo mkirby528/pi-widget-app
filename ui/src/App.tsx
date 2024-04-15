@@ -49,7 +49,7 @@ function App() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div">
-            Howdy Matthew
+            Matthew Kirby
           </Typography>
         </Toolbar>
       </AppBar>

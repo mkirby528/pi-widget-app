@@ -1,7 +1,6 @@
-import { Box, Card, Paper, Typography } from "@mui/material";
-import React, { useState, useEffect } from 'react';
+import { Card, CardMedia, Typography } from "@mui/material";
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-
 
 type CurrentWeatherFields = {
     "dt": number,
@@ -17,7 +16,8 @@ type CurrentWeatherFields = {
     "visibility": number,
     "wind_speed": number,
     "wind_deg": number,
-    "weather": Array<any>
+    "wind_gust": number,
+    "weather": Array<WeatherFields>
 }
 type WeatherResponse = {
     "lat": number,
@@ -25,38 +25,48 @@ type WeatherResponse = {
     "timezone": string
     "timezone_offset": number,
     "current": CurrentWeatherFields,
-    "minutely": Array<any>,
-    "hourly": Array<any>,
-    "daily": Array<any>,
-    "alerts": Array<any>
 };
+type WeatherFields = {
+    "id": number,
+    "main": String,
+    "description": String,
+    "icon": String
+}
 
-
-
-export default function WeatherWidget(props: any) {
+export default function WeatherWidget() {
     const [weather, setWeather] = useState<WeatherResponse>();
-    const lat = "38.892191877"
-    const lon = "-77.0760674"
-    const units = "imperial"
-    const apiKey = "cada03226eb97a6bd8fe0ab96d7878df"
+
+    const getWeatherData = async () => {
+        try {
+            console.log("Calling open weather api to get weather data...")
+            const response = await axios.get("/api/weather")
+            setWeather(response.data)
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     useEffect(() => {
-        axios.get(`https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=${units}
-        `)
-            .then(response => {
-                setWeather(response.data);
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        getWeatherData();
+
+        const intervalCall = setInterval(() => {
+            getWeatherData();
+        }, 300000); // Refresh every 5 min (300000 ms)
+        return () => {
+            clearInterval(intervalCall);
+        };
     }, []);
 
-
-    console.log(weather)
-
     return (
-        <Card raised sx={{backgroundColor:"red", height: "100%", width: "100%", p: 2 }}>
+        <Card raised sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", backgroundColor: "primary.main", height: "100%", width: "100%", p: 2 }}>
+            <CardMedia
+                component="img"
+                height="140"
+                image={`https://openweathermap.org/img/wn/${weather?.current.weather[0].icon}@2x.png`}
+                alt="Weather Icon"
+            />
             <Typography variant="h1" component="div">{Math.round(weather?.current?.temp)}°F</Typography>
         </Card>
     )
 }
+
