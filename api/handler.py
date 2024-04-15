@@ -17,7 +17,7 @@ logger = logging.getLogger("pi-app-api")
 
 def lambda_handler(event, context):
     try:
-        logger.info(f"Lambda invoked successfully!!")
+        logger.info(f"Lambda invoked successfully!")
         load_dotenv(find_dotenv())
 
         path = event.get("path")
