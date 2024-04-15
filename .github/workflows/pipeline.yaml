@@ -22,7 +22,7 @@ jobs:
 
 
 # sam deploy
-      - run: sam deploy --no-confirm-changeset --parameter-overrides OpenWeatherApiKey=${OPEN_WEATHER_API_KEY}  MetroApiKey=${WMATA_API_KEY} \
+      - run: sam deploy --no-confirm-changeset ----no-fail-on-empty-changeset --parameter-overrides OpenWeatherApiKey=${OPEN_WEATHER_API_KEY}  MetroApiKey=${WMATA_API_KEY} \
 
       - run: npm run deploy --prefix ui
 
