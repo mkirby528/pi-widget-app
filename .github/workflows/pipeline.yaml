@@ -23,4 +23,4 @@ jobs:
 
 # sam deploy
       - run: sam deploy --parameter-overrides OpenWeatherApiKey=${OPEN_WEATHER_API_KEY}  MetroApiKey=${WMATA_API_KEY} \
-                          -no-confirm-changeset
+                          --no-confirm-changeset
