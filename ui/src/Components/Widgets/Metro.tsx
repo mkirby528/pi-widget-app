@@ -1,4 +1,4 @@
-import { useState, useEffect,FC } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Card, Typography } from '@mui/material';
 
@@ -24,7 +24,6 @@ export default function MetroWidget() {
             console.log("Calling metro api to get train data...")
             const response = await axios.get("/api/metro")
             setNextTrains(response.data)
-            console.log(nextTrains)
         } catch (e) {
             console.log(e)
         }
