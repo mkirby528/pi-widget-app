@@ -49,7 +49,7 @@ function App() {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" component="div">
-            Matthew 🔥
+            Matthew
           </Typography>
         </Toolbar>
       </AppBar>
