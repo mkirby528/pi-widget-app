@@ -40,7 +40,6 @@ export default function AlbumReviewWidget() {
     const carouselStyle = {
         height: "100% !important",
         width: "100% !important",
-        padding: "0px",
         "& div": {
             height: "100% !important",
             width: "100% !important",
