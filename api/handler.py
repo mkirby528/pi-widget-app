@@ -33,7 +33,8 @@ def lambda_handler(event, context):
         if path == PATHS.GET_METRO_TIMES and method == "GET":
             return build_response(200, get_next_trains())
         if path == PATHS.GET_ALBUMS_REVIEWS and method == "GET":
-            return build_response(200, get_random_reviews(int(query_params.get("n", 25))))
+            limit = query_params.get("n", 25) if query_params else 25
+            return build_response(200, get_random_reviews(limit)
         else:
             return build_response(404, "Endpoint not found")
     except Exception as error:
