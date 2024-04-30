@@ -44,8 +44,7 @@ export default function AlbumReviewWidget() {
         "& div": {
             height: "100% !important",
             width: "100% !important",
-        }
-
+        },
     }
     return (
         <Carousel
@@ -62,7 +61,9 @@ export default function AlbumReviewWidget() {
         >
             {
                 albums?.map((album, i) => (
-                    <Card key={i} sx={{height:"100%", p:2}}>
+                    <Card key={i} sx={{
+                        height: "100%", p: 2, backgroundColor:"primary.main"
+                    }}>
                         <img height="70%" alt={`Album cover for ${album.Title}`} src={album?.CoverImage}></img>
                         <Typography variant="h2">{album?.Rating}</Typography>
                     </Card>

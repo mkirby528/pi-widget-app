@@ -58,7 +58,7 @@ export default function WeatherWidget() {
     }, []);
 
     return (
-        <Card raised sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", backgroundColor: "primary.main", height: "100%", width: "100%", p: 2 }}>
+        <Card sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", backgroundColor: "primary.main", height: "100%", width: "100%", p: 2 }}>
             <CardMedia
                 component="img"
                 height="140"
