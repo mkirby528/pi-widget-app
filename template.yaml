@@ -6,7 +6,7 @@ Description: >
 Globals:
   Function:
     Timeout: 5
-    MemorySize: 128
+    MemorySize: 256
 
     # You can add LoggingConfig parameters such as the Logformat, Log Group, and SystemLogLevel or ApplicationLogLevel. Learn more here https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/sam-resource-function.html#sam-function-loggingconfig.
     LoggingConfig:
@@ -91,10 +91,13 @@ Resources:
       Runtime: python3.12
       Architectures:
         - x86_64
+      Policies:
+        - AmazonDynamoDBFullAccess
       Environment:
         Variables:
           OPEN_WEATHER_API_KEY: !Ref OpenWeatherApiKey
           WMATA_API_KEY: !Ref MetroApiKey
+          ALBUM_REVIEW_TABLE_NAME: music_reviews
           ENV: PROD
       Events:
         HttpApiAnyPathAnyMethod:

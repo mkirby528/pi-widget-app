@@ -18,7 +18,7 @@ class PATHS():
     HEALTH_CHECK = f"/api/health"
     GET_WEATHER = f"/api/weather"
     GET_METRO_TIMES = f"/api/metro"
-
+    GET_ALBUMS_REVIEWS = f"/api/album-reviews"
     
 
 
