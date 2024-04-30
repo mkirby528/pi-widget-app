@@ -84,7 +84,7 @@ export default function MetroWidget() {
         return () => {
             clearTimeout(timeout);
         };
-    }, [nextTrains, pageNumber]);
+    }, [nextTrains, pageNumber, numPages]);
 
 
 
