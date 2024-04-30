@@ -102,7 +102,7 @@ export default function MetroWidget() {
 
     return (
         <Card raised sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", backgroundColor: "primary.main", height: "100%", width: "100%", p: 2 }}>
-            <Typography variant='h6'>rosslyn like train.</Typography>
+            <Typography variant='h6'>rosslyn {nextTrains.length > 0 ? "have" : "no"} train.</Typography>
             <Grid sx={{ width: "100%", height: "100%", overflow: "hidden" }}>
                 {pageTrains.map(function (train: TrainObject, i) {
                     return <Grid key={i + train.destination} xs={12}><TrainRow train={train} /></Grid>;
