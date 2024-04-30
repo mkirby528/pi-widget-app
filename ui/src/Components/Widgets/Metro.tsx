@@ -87,7 +87,7 @@ export default function MetroWidget() {
 
 
     const textStyle = {
-        textShadow: "0.07em 0 black,0 0.07em black,-0.07em 0 black,0 -0.07em black"
+        // textShadow: "0.07em 0 black,0 0.07em black,-0.07em 0 black,0 -0.07em black"
     };
 
     function TrainRow(props: { train: TrainObject }): JSX.Element {
