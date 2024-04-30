@@ -41,14 +41,18 @@ function getTrainHexColor(line: string): string {
 function TrainRow(props: { train: TrainObject }): JSX.Element {
     const train = props.train
     const trainHexColor: string = getTrainHexColor(train.line)
-    return <Box sx={{ p: 1, my: 1, backgroundColor: trainHexColor }}>
-        <Typography variant='h6'>{train.destination} - {train.min_away}</Typography>
+    return <Box sx={{display:"flex", flexDirection:"row", justifyContent:"space-between", p: 1, my: 2, backgroundColor: trainHexColor }}>
+        <Typography variant='h6'>{train.destination}</Typography>
+        <Typography variant='h6'>{train.min_away}</Typography>
+
+        
     </Box>
 }
 
 export default function MetroWidget() {
     const [nextTrains, setNextTrains] = useState<TrainList>([]);
     const [pageNumber, setPageNumber] = useState<number>(0)
+   
     const trainsPerPage = 3;
     const pageTrains = nextTrains.slice(pageNumber * trainsPerPage, trainsPerPage * (pageNumber + 1))
     const numPages = Math.ceil(nextTrains.length / trainsPerPage);
@@ -77,7 +81,7 @@ export default function MetroWidget() {
     useEffect(() => {
         const timeout = setInterval(() => {
             const newPageNumber = (pageNumber + 1) % numPages
-            console.log(`updatig metro page from ${pageNumber} to ${newPageNumber}`)
+            console.log(`updating metro page from ${pageNumber} to ${newPageNumber}`)
             setPageNumber(newPageNumber)
         }, 10000) // New Page 10 sec;
 
@@ -95,7 +99,7 @@ export default function MetroWidget() {
 
     return (
         <Card raised sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", backgroundColor: "primary.main", height: "100%", width: "100%", p: 2 }}>
-            <Typography variant='h6'>i like train</Typography>
+            <Typography variant='h6'>rosslyn like train.</Typography>
             <Grid sx={{ width: "100%", height: "100%", overflow: "hidden" }}>
                 {pageTrains.map(function (train: TrainObject, i) {
                     return <Grid key={i + train.destination} xs={12}><TrainRow train={train} /></Grid>;
