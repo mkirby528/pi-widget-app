@@ -2,6 +2,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Box from '@mui/material/Box';
 import WeatherWidget from './Widgets/Weather';
 import MetroWidget from './Widgets/Metro';
+import AlbumReviewWidget from "./Widgets/AlbumReview"
 
 
 
@@ -21,6 +22,7 @@ export default function HomePage(props: any) {
         <Grid container justifyContent="center" alignItems="center">
                 <GridItem widget={<WeatherWidget/>} />
                 <GridItem widget={<MetroWidget/>} />
+                <GridItem widget={<AlbumReviewWidget/>} />
 
         </Grid>
     )
