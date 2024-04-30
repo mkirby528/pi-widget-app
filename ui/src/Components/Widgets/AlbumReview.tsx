@@ -30,7 +30,7 @@ export default function AlbumReviewWidget() {
 
         const intervalCall = setInterval(() => {
             getAlbumReviews();
-        }, 10000 * 25); // 10 sec per album, 25 albums
+        }, 30000 * 25); // 30 sec per album, 25 albums
         return () => {
             clearInterval(intervalCall);
         };
@@ -39,7 +39,7 @@ export default function AlbumReviewWidget() {
         <Carousel
             animation={"slide"}
             fullHeightHover={false}
-            interval={10000}
+            interval={30000}
             duration={500}
             swipe={false}
             navButtonsAlwaysInvisible
