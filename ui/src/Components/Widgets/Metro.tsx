@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Box, Card, Stack, Typography } from '@mui/material';
+import { Box, Card, Typography } from '@mui/material';
+import Grid from '@mui/material/Unstable_Grid2';
 
 type TrainList = Array<TrainObject>
 type TrainObject = {
@@ -40,19 +41,23 @@ function getTrainHexColor(line: string): string {
 function TrainRow(props: { train: TrainObject }): JSX.Element {
     const train = props.train
     const trainHexColor: string = getTrainHexColor(train.line)
-    return <Box sx={{ p: 1, my: 1, backgroundColor: trainHexColor, width: "100%" }}>
+    return <Box sx={{ p: 1, my: 1, backgroundColor: trainHexColor }}>
         <Typography variant='h6'>{train.destination} - {train.min_away}</Typography>
     </Box>
 }
 
 export default function MetroWidget() {
-    const [nextTrains, setNextTrains] = useState<TrainList>();
+    const [nextTrains, setNextTrains] = useState<TrainList>([]);
+    const [pageNumber, setPageNumber] = useState<number>(0)
+    const trainsPerPage = 3;
+    const pageTrains = nextTrains.slice(pageNumber * trainsPerPage, trainsPerPage * (pageNumber + 1))
+    const numPages = Math.ceil(nextTrains.length / trainsPerPage);
 
     const getMetroData = async () => {
         try {
             console.log("Calling metro api to get train data...")
             const response = await axios.get("/api/metro")
-            setNextTrains(response.data)
+            setNextTrains(response.data.filter(value => value?.line != null))
         } catch (e) {
             console.log(e)
         }
@@ -69,16 +74,33 @@ export default function MetroWidget() {
         };
     }, []);
 
+    useEffect(() => {
+        const timeout = setInterval(() => {
+            const newPageNumber = (pageNumber + 1) % numPages
+            console.log(`updatig metro page from ${pageNumber} to ${newPageNumber}`)
+            setPageNumber(newPageNumber)
+        }, 10000) // New Page 10 sec;
+
+        return () => {
+            clearTimeout(timeout);
+        };
+    }, [nextTrains, pageNumber]);
+
+
+
+
+
+
 
 
     return (
         <Card raised sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", backgroundColor: "primary.main", height: "100%", width: "100%", p: 2 }}>
             <Typography variant='h6'>i like train</Typography>
-            <Stack sx={{ width: "100%" }}>
-                {nextTrains?.filter(value => value?.line != null).slice(0, 3)?.map(function (train: TrainObject, i) {
-                    return <TrainRow train={train} key={i} />;
+            <Grid sx={{ width: "100%", height: "100%", overflow: "scroll" }}>
+                {pageTrains.map(function (train: TrainObject, i) {
+                    return <Grid key={i + train.destination} xs={12}><TrainRow train={train} /></Grid>;
                 })}
-            </Stack>
+            </Grid>
         </Card>
     )
 }
