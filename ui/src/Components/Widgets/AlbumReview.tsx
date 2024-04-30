@@ -30,7 +30,7 @@ export default function AlbumReviewWidget() {
 
         const intervalCall = setInterval(() => {
             getAlbumReviews();
-        }, 600000); // Refresh every 10 min (600000 ms)
+        }, 10000 * 25); // 10 sec per album, 25 albums
         return () => {
             clearInterval(intervalCall);
         };
