@@ -37,21 +37,21 @@ export default function AlbumReviewWidget() {
     }, []);
     return (
         <Carousel
-        animation={"slide"}
-        fullHeightHover={false}
-        interval={10000}
-        duration={500}
-        swipe={false}
-        navButtonsAlwaysInvisible
-        sx={{height:"100% !important", width:"100% !important"}}
-        indicators={false}
-        stopAutoPlayOnHover={false}
+            animation={"slide"}
+            fullHeightHover={false}
+            interval={10000}
+            duration={500}
+            swipe={false}
+            navButtonsAlwaysInvisible
+            sx={{ height: "100% !important", width: "100% !important" }}
+            indicators={false}
+            stopAutoPlayOnHover={false}
 
         >
             {
                 albums?.map((album, i) => (
-                    <Card key={album.Title+i} raised sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", backgroundColor: "primary.main", height: "100%", width: "100%", p: 2 }}>
-                        <img width="180" height="180" src={album?.CoverImage}></img>
+                    <Card key={album.Title + i} raised sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", backgroundColor: "primary.main", height: "100%", width: "100%", p: 2 }}>
+                        <img alt={`Album cover for ${album.Title}`} width="180" height="180" src={album?.CoverImage}></img>
                         <Typography variant="h2">{album?.Rating}</Typography>
                     </Card>
                 ))
