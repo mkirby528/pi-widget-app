@@ -22,7 +22,7 @@ def lambda_handler(event, context):
         load_dotenv(find_dotenv())
         path = event.get("path")
         method = event.get("httpMethod")
-        query_params = event.get("queryStringParameters")
+        query_params = event.get("queryStringParameters", {})
         logger.info(f"Recieved request to {path}")
         logger.info(f"Query Params: {query_params}")
 
