@@ -38,21 +38,12 @@ function getTrainHexColor(line: string): string {
     }
 }
 
-function TrainRow(props: { train: TrainObject }): JSX.Element {
-    const train = props.train
-    const trainHexColor: string = getTrainHexColor(train.line)
-    return <Box sx={{display:"flex", flexDirection:"row", justifyContent:"space-between", p: 1, my: 2, backgroundColor: trainHexColor }}>
-        <Typography variant='h6'>{train.destination}</Typography>
-        <Typography variant='h6'>{train.min_away}</Typography>
 
-        
-    </Box>
-}
 
 export default function MetroWidget() {
     const [nextTrains, setNextTrains] = useState<TrainList>([]);
     const [pageNumber, setPageNumber] = useState<number>(0)
-   
+
     const trainsPerPage = 3;
     const pageTrains = nextTrains.slice(pageNumber * trainsPerPage, trainsPerPage * (pageNumber + 1))
     const numPages = Math.ceil(nextTrains.length / trainsPerPage);
@@ -95,7 +86,19 @@ export default function MetroWidget() {
 
 
 
+    const textStyle = {
+        textShadow: "0.07em 0 black,0 0.07em black,-0.07em 0 black,0 -0.07em black"
+    };
 
+    function TrainRow(props: { train: TrainObject }): JSX.Element {
+        const train = props.train
+        const trainHexColor: string = getTrainHexColor(train.line)
+        return (
+            <Box sx={{ display: "flex", flexDirection: "row", justifyContent: "space-between", p: 1, my: 2, backgroundColor: trainHexColor }}>
+                <Typography style={textStyle} variant='h6'>{train.destination}</Typography>
+                <Typography style={textStyle} variant='h6'>{train.min_away}</Typography>
+            </Box>)
+    }
 
     return (
         <Card raised sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", backgroundColor: "primary.main", height: "100%", width: "100%", p: 2 }}>
