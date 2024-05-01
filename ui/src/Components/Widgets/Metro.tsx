@@ -71,9 +71,15 @@ export default function MetroWidget() {
 
     useEffect(() => {
         const timeout = setInterval(() => {
-            const newPageNumber = (pageNumber + 1) % numPages
-            console.log(`updating metro page from ${pageNumber} to ${newPageNumber}`)
-            setPageNumber(newPageNumber)
+            if (numPages == 0) {
+                console.log(`updating metro page from to 0`)
+                setPageNumber(0)
+
+            } else {
+                const newPageNumber = (pageNumber + 1) % numPages
+                console.log(`updating metro page from ${pageNumber} to ${newPageNumber}`)
+                setPageNumber(newPageNumber)
+            }
         }, 10000) // New Page 10 sec;
 
         return () => {
