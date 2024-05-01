@@ -71,7 +71,7 @@ export default function MetroWidget() {
 
     useEffect(() => {
         const timeout = setInterval(() => {
-            if (numPages == 0) {
+            if (numPages === 0) {
                 console.log(`updating metro page from to 0`)
                 setPageNumber(0)
 
