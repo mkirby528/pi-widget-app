@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import WeatherWidget from './Widgets/Weather';
 import MetroWidget from './Widgets/Metro';
 import AlbumReviewWidget from "./Widgets/AlbumReview"
+import PhotoWidget from './Widgets/PhotoWidget';
 
 
 
@@ -12,7 +13,7 @@ function GridItem({widget}) {
             <Box display="flex" justifyContent="center" alignItems="center" component="section" sx={{
                 height: "95%",
                 width: "95%",
-                backgroundColor: "primary.main"
+                backgroundColor: "transparent"
             }}>{widget}</Box>
         </Grid>)
 }
@@ -23,6 +24,9 @@ export default function HomePage(props: any) {
                 <GridItem widget={<WeatherWidget/>} />
                 <GridItem widget={<MetroWidget/>} />
                 <GridItem widget={<AlbumReviewWidget/>} />
+                <GridItem widget={<PhotoWidget photos={props.photos}/>} />
+                <GridItem widget={<PhotoWidget photos={props.photos}/>} />
+                <GridItem widget={<PhotoWidget photos={props.photos}/>} />
 
         </Grid>
     )

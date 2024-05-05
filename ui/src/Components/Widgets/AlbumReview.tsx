@@ -2,6 +2,9 @@ import { Card, Typography } from "@mui/material";
 import Carousel from 'react-material-ui-carousel'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { LazyLoadImage } from "react-lazy-load-image-component";
+
+
 
 type AlbumList = Array<Album>
 type Album = {
@@ -38,6 +41,7 @@ export default function AlbumReviewWidget() {
 
 
     const carouselStyle = {
+        backgroundColor: "primary.main",
         height: "100% !important",
         width: "100% !important",
         textAlign: "center",
@@ -62,9 +66,9 @@ export default function AlbumReviewWidget() {
             {
                 albums?.map((album, i) => (
                     <Card key={i} sx={{
-                        height: "100%", p: 2, backgroundColor:"primary.main"
+                        height: "100%", p: 2, backgroundColor:"transparent"
                     }}>
-                        <img height="70%" alt={`Album cover for ${album.Title}`} src={album?.CoverImage}></img>
+                        <LazyLoadImage height="70%" alt={`Album cover for ${album.Title}`} src={album?.CoverImage}></LazyLoadImage>
                         <Typography variant="h2">{album?.Rating}</Typography>
                     </Card>
                 ))

@@ -6,9 +6,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 
 
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TemporaryDrawer from "./Components/Drawer"
 import HomePage from './Components/HomePage';
+import axios from 'axios';
 
 
 
@@ -27,7 +28,29 @@ const theme = createTheme({
 
 
 function App() {
-  const [isDrawerOpen, setOpen] = useState(false);
+  const [googlePhotos, setGooglePhotos] = useState<string[]>([])
+  const [isDrawerOpen, setOpen] = useState<boolean>(false);
+
+  const getGooglePhotos = async () => {
+    try {
+      console.log("Calling photos api to get albums...")
+      const response = await axios.get("/api/photos")
+      setGooglePhotos(response.data)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
+  useEffect(() => {
+    getGooglePhotos();
+
+    const intervalCall = setInterval(() => {
+      getGooglePhotos();
+    }, 60000 * 500); // 60 sec per album ~500 photos
+    return () => {
+      clearInterval(intervalCall);
+    };
+  }, []);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -55,7 +78,7 @@ function App() {
       </AppBar>
       <TemporaryDrawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
       <main>
-        <HomePage />
+        <HomePage photos={googlePhotos} />
       </main>
     </ThemeProvider>
   );
