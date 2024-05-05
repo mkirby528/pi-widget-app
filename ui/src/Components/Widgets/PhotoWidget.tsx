@@ -34,7 +34,7 @@ export default function PhotoWidget({ photos }: Props) {
 
             {
                 photos?.sort(() => Math.random() - 0.5).map((photo, i) => (
-                    <LazyLoadImage style={{"objectFit": "fill", "border": "2px solid", "maxHeight": "100%", "maxWidth":"100%", "overflow":"hidden" }} src={photo} alt="photo"></LazyLoadImage>
+                    <LazyLoadImage style={{"objectFit": "fill", "border": "5px solid darkgray", "borderRadius":"5px", "maxHeight": "100%", "maxWidth":"100%", "overflow":"hidden" }} src={photo} alt="photo"></LazyLoadImage>
                 ))
             }
 
