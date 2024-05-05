@@ -1,6 +1,9 @@
 env:
   OPEN_WEATHER_API_KEY: ${{secrets.OPEN_WEATHER_API_KEY}}
   WMATA_API_KEY: ${{secrets.WMATA_API_KEY}}
+  GOOGLE_CLIENT_ID: ${{secrets.GOOGLE_CLIENT_ID}}
+  GOOGLE_CLIENT_SECRET: ${{secrets.GOOGLE_CLIENT_SECRET}}
+  GOOGLE_REFRESH_TOKEN: ${{secrets.GOOGLE_REFRESH_TOKEN}}
 on:
   push:
     branches:
@@ -25,7 +28,7 @@ jobs:
 
 
 # sam deploy
-      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --parameter-overrides OpenWeatherApiKey=${OPEN_WEATHER_API_KEY}  MetroApiKey=${WMATA_API_KEY} \
+      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --parameter-overrides OpenWeatherApiKey=${OPEN_WEATHER_API_KEY}  MetroApiKey=${WMATA_API_KEY}  GoogleClientId=${GOOGLE_CLIENT_ID} GoogleClientSecret=${GOOGLE_CLIENT_SECRET}  GoogleRefreshToken=${GoogleRefreshToken} \
       - run: npm install --prefix ui
       - run: npm run deploy --prefix ui && aws cloudfront create-invalidation --distribution-id E1CPX8JAUIPVTM --paths "/*"
 

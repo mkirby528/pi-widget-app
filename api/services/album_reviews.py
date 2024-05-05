@@ -4,7 +4,6 @@ from os import getenv
 from logging import getLogger
 logger = getLogger("pi-app-api")
 
-logger.info("HERE")
 REVIEW_TABLE_NAME = getenv("ALBUM_REVIEW_TABLE_NAME")
 logger.info(f"name: {REVIEW_TABLE_NAME}")
 

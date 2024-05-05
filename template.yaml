@@ -89,6 +89,8 @@ Resources:
       CodeUri: api/
       Handler: handler.lambda_handler
       Runtime: python3.12
+      Timeout: 15
+
       Architectures:
         - x86_64
       Policies:
@@ -98,6 +100,9 @@ Resources:
           OPEN_WEATHER_API_KEY: !Ref OpenWeatherApiKey
           WMATA_API_KEY: !Ref MetroApiKey
           ALBUM_REVIEW_TABLE_NAME: music_reviews
+          GOOGLE_CLIENT_ID:  !Ref GoogleClientId
+          GOOGLE_CLIENT_SECRET:  !Ref GoogleClientSecret
+          GOOGLE_REFRESH_TOKEN: !Ref GoogleRefreshToken
           ENV: PROD
       Events:
         HttpApiAnyPathAnyMethod:
@@ -114,6 +119,18 @@ Parameters:
     Default: ""
     NoEcho: true
   MetroApiKey:
+    Type: String
+    Default: ""
+    NoEcho: true
+  GoogleClientId:
+    Type: String
+    Default: ""
+    NoEcho: true
+  GoogleClientSecret:
+    Type: String
+    Default: ""
+    NoEcho: true
+  GoogleRefreshToken:
     Type: String
     Default: ""
     NoEcho: true

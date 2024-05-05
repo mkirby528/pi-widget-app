@@ -5,6 +5,7 @@ from utils import build_response
 from services.open_weather import get_weather
 from services.wmata import get_next_trains
 from services.album_reviews import get_random_reviews
+from services.google_photos import get_all_image_urls_for_album_id
 import logging
 logging.basicConfig(
     level=logging.INFO,
@@ -35,6 +36,8 @@ def lambda_handler(event, context):
         if path == PATHS.GET_ALBUMS_REVIEWS and method == "GET":
             limit = int(query_params.get("n", 25)) if query_params else 25
             return build_response(200, get_random_reviews(limit))
+        if path == PATHS.GET_GOOGLE_PHOTOS and method == "GET":
+            return build_response(200, get_all_image_urls_for_album_id("AJXIcPcuTrNuHkKiFcK7_UjFGvqfrNkUZ52CDUuZXoC3tDE3c3iw_35ItkmdpeccSuEzfKTc9Qnv"))
         else:
             return build_response(404, "Endpoint not found")
     except Exception as error:
