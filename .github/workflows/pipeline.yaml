@@ -28,7 +28,7 @@ jobs:
 
 
 # sam deploy
-      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --parameter-overrides OpenWeatherApiKey=${OPEN_WEATHER_API_KEY}  MetroApiKey=${WMATA_API_KEY}  GoogleClientId=${GOOGLE_CLIENT_ID} GoogleClientSecret=${GOOGLE_CLIENT_SECRET}  GoogleRefreshToken=${GoogleRefreshToken} \
+      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --parameter-overrides OpenWeatherApiKey=${OPEN_WEATHER_API_KEY}  MetroApiKey=${WMATA_API_KEY}  GoogleClientId=${GOOGLE_CLIENT_ID} GoogleClientSecret=${GOOGLE_CLIENT_SECRET}  GoogleRefreshToken=${GOOGLE_REFRESH_TOKEN} \
       - run: npm install --prefix ui
       - run: npm run deploy --prefix ui && aws cloudfront create-invalidation --distribution-id E1CPX8JAUIPVTM --paths "/*"
 
