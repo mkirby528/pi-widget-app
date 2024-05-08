@@ -29,6 +29,8 @@ const theme = createTheme({
 });
 
 
+
+
 function App() {
   const [googlePhotos, setGooglePhotos] = useState<string[]>([])
   const [isDrawerOpen, setOpen] = useState<boolean>(false);
@@ -58,6 +60,7 @@ function App() {
     setOpen(newOpen);
   };
 
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -70,8 +73,6 @@ function App() {
       errorElement: <div>whoopsidoodle</div>
     }
   ]);
-
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
