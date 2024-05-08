@@ -59,6 +59,8 @@ export default function MetroWidget() {
     }
 
     useEffect(() => {
+        getMetroData();
+
         const intervalCall = setInterval(() => {
             getMetroData();
         }, 30000); // Refresh every 30 seconds (30000 ms)
@@ -68,6 +70,7 @@ export default function MetroWidget() {
     }, []);
 
     useEffect(() => {
+
         const timeout = setInterval(() => {
             if (nextTrains.length === 0) {
                 console.log(`updating metro page from to 0`)
@@ -104,18 +107,17 @@ export default function MetroWidget() {
             </Box>)
     }
 
-    getMetroData();
 
 
     return (
-            <Card sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", backgroundColor: "primary.main", height: "100%", width: "100%", p: 2 }}>
-                <Typography variant='h6'>rosslyn {nextTrains.length > 0 ? "have" : "no"} train.</Typography>
-                <Grid sx={{ width: "100%", height: "100%", overflow: "hidden" }}>
-                    {pageTrains.map(function (train: TrainObject, i) {
-                        return <Grid key={i + train.destination} xs={12}><TrainRow train={train} /></Grid>;
-                    })}
-                </Grid>
-            </Card>
+        <Card sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", backgroundColor: "primary.main", height: "100%", width: "100%", p: 2 }}>
+            <Typography variant='h6'>rosslyn {nextTrains.length > 0 ? "have" : "no"} train.</Typography>
+            <Grid sx={{ width: "100%", height: "100%", overflow: "hidden" }}>
+                {pageTrains.map(function (train: TrainObject, i) {
+                    return <Grid key={i + train.destination} xs={12}><TrainRow train={train} /></Grid>;
+                })}
+            </Grid>
+        </Card>
     )
 }
 
