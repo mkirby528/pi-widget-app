@@ -47,7 +47,7 @@ Resources:
             AllowedMethods: [GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE]
             ForwardedValues:
               QueryString: true
-         CustomErrorResponses:
+        CustomErrorResponses:
           - ErrorCode: '404'
             ResponsePagePath: "/index.html"
             ResponseCode: '200'
