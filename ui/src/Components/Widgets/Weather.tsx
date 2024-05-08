@@ -36,28 +36,35 @@ type WeatherFields = {
 export default function WeatherWidget() {
     const [weather, setWeather] = useState<WeatherResponse>();
 
-    const getWeatherData = async () => {
-        try {
-            console.log("Calling open weather api to get weather data...")
-            const response = await axios.get("/api/weather")
-            setWeather(response.data)
-        } catch (e) {
-            console.log(e)
-        }
-    }
+
 
     useEffect(() => {
-        getWeatherData();
+
+        const getWeatherData = async () => {
+            try {
+                console.log("Calling open weather api to get weather data...")
+                const response = await axios.get("/api/weather")
+                setWeather(response.data)
+            } catch (e) {
+                console.log(e)
+            }
+        }
 
         const intervalCall = setInterval(() => {
             getWeatherData();
         }, 300000); // Refresh every 5 min (300000 ms)
+
+        getWeatherData();
+
         return () => {
             clearInterval(intervalCall);
         };
+
     }, []);
 
+
     return (
+        
         <Card sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", backgroundColor: "primary.main", height: "100%", width: "100%", p: 2 }}>
             <CardMedia
                 component="img"

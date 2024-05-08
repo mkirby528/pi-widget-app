@@ -7,6 +7,7 @@ export default function TemporaryDrawer(props: any) {
         }}
             variant='temporary' open={props.isDrawerOpen} onOpen={props.toggleDrawer(true)} onClose={props.toggleDrawer(false)}>
             what goes here
+            <a href='/photos'>phots</a>
         </SwipeableDrawer>
     );
 }

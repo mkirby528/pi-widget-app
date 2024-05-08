@@ -4,14 +4,16 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
-
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
 
 import { useEffect, useState } from 'react';
 import TemporaryDrawer from "./Components/Drawer"
 import HomePage from './Components/HomePage';
 import axios from 'axios';
-
-
+import PhotoWidget from './Components/Widgets/PhotoWidget';
 
 
 const theme = createTheme({
@@ -56,6 +58,19 @@ function App() {
     setOpen(newOpen);
   };
 
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <HomePage photos={googlePhotos} />,
+      errorElement: <div>whoopsidoodle</div>
+    },
+    {
+      path: "/photos",
+      element: <PhotoWidget photos={googlePhotos} />,
+      errorElement: <div>whoopsidoodle</div>
+    }
+  ]);
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -77,8 +92,8 @@ function App() {
         </Toolbar>
       </AppBar>
       <TemporaryDrawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
-      <main>
-        <HomePage photos={googlePhotos} />
+      <main style={{ height: "95vh" }}>
+        <RouterProvider router={router} />
       </main>
     </ThemeProvider>
   );

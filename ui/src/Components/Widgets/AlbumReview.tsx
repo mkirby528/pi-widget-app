@@ -18,17 +18,19 @@ type Album = {
 export default function AlbumReviewWidget() {
     const [albums, setAlbums] = useState<AlbumList>([]);
 
-    const getAlbumReviews = async () => {
-        try {
-            console.log("Calling album review api to get albums...")
-            const response = await axios.get("/api/album-reviews")
-            setAlbums(response.data)
-        } catch (e) {
-            console.log(e)
-        }
-    }
+  
 
     useEffect(() => {
+        const getAlbumReviews = async () => {
+            try {
+                console.log("Calling album review api to get albums...")
+                const response = await axios.get("/api/album-reviews")
+                setAlbums(response.data)
+            } catch (e) {
+                console.log(e)
+            }
+        }
+
         getAlbumReviews();
 
         const intervalCall = setInterval(() => {

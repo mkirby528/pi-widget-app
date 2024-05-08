@@ -25,8 +25,6 @@ export default function HomePage(props: any) {
                 <GridItem widget={<MetroWidget/>} />
                 <GridItem widget={<AlbumReviewWidget/>} />
                 <GridItem widget={<PhotoWidget photos={props.photos}/>} />
-                <GridItem widget={<PhotoWidget photos={props.photos}/>} />
-                <GridItem widget={<PhotoWidget photos={props.photos}/>} />
 
         </Grid>
     )
