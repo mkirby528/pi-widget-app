@@ -47,8 +47,18 @@ Resources:
             AllowedMethods: [GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE]
             ForwardedValues:
               QueryString: true
+         CustomErrorResponses:
+          - ErrorCode: '404'
+            ResponsePagePath: "/index.html"
+            ResponseCode: '200'
+            ErrorCachingMinTTL: '30'
+          - ErrorCode: '403'
+            ResponsePagePath: "/index.html"
+            ResponseCode: '200'
+            ErrorCachingMinTTL: '30'
         Enabled: true
         DefaultRootObject: index.html
+        
 
   FrontendBucketPolicy:
     Type: AWS::S3::BucketPolicy
