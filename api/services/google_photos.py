@@ -18,7 +18,7 @@ def get_access_token():
 
     }
     response = requests.post(API_ENDPOINTS.GOOGLE_REFRESH_TOKEN, request_body)
-    logger.info(f"Response status from refresh token call {response.status_code}")
+    logger.info(f"Response from refresh token call: {response.json()}")
     return response.json().get("access_token")
 
 
@@ -37,7 +37,7 @@ def get_all_image_urls_for_album_id(album_id: str):
         if next_page_token:
             request_body["pageToken"] = next_page_token
         response = requests.post(url, request_body)
-        logger.info(response)
+        logger.info(f"Google photo response: {response.json()}")
         urls = [f"{photo.get("baseUrl")}=w2048-h1024"
                 for photo in response.json().get("mediaItems")]
         photos += urls

@@ -21,7 +21,7 @@ def get_next_trains():
     }
     response = requests.get(uri, headers=HEADERS)
     incoming_trains = response.json().get('Trains', [])
-    logger.info(response.json)
+    logger.info(f"Metro Resposne: {response.json()}")
 
     # Format Response
     formatted_trains = []
