@@ -18,7 +18,7 @@ def get_access_token():
 
     }
     response = requests.post(API_ENDPOINTS.GOOGLE_REFRESH_TOKEN, request_body)
-    logger.info(f"Response from refresh token call: {response.json()}")
+    logger.info(f"Response status from refresh token call: {response.status_code}")
     return response.json().get("access_token")
 
 
