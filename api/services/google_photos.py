@@ -10,7 +10,6 @@ def get_access_token():
     client_secret=  getenv("GOOGLE_CLIENT_SECRET", "")
     refresh_token = getenv("GOOGLE_REFRESH_TOKEN", "")
 
-    logger.info(f"{client_id}, {client_secret}, {refresh_token}")
     request_body = {
         "client_id": client_id,
         "client_secret": client_secret,
