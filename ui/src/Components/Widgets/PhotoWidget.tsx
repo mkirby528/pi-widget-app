@@ -19,7 +19,6 @@ export default function PhotoWidget({ photos }: Props) {
             width: "100% !important",
         },
     }
-    console.log(photos.length)
     if (photos.length > 0) {
         return (<Carousel
             animation={"slide"}

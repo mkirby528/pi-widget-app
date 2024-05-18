@@ -90,6 +90,7 @@ function App() {
           <Typography variant="h6" component="div">
             Matthew
           </Typography>
+          <a href="/">HOME PAGE </a>
         </Toolbar>
       </AppBar>
       <TemporaryDrawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
