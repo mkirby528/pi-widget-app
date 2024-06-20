@@ -1,4 +1,4 @@
-import { Box, Card, Rating, Typography } from "@mui/material";
+import { Box, Card, Typography } from "@mui/material";
 import Carousel from 'react-material-ui-carousel'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
