@@ -1,4 +1,4 @@
-import { Card, Typography } from "@mui/material";
+import { Box, Card, Rating, Typography } from "@mui/material";
 import Carousel from 'react-material-ui-carousel'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -18,7 +18,7 @@ type Album = {
 export default function AlbumReviewWidget() {
     const [albums, setAlbums] = useState<AlbumList>([]);
 
-  
+
 
     useEffect(() => {
         const getAlbumReviews = async () => {
@@ -56,7 +56,7 @@ export default function AlbumReviewWidget() {
         <Carousel
             animation={"slide"}
             fullHeightHover={false}
-            interval={30000}
+            interval={1000} //30000
             duration={500}
             navButtonsAlwaysInvisible
             indicators={false}
@@ -68,14 +68,32 @@ export default function AlbumReviewWidget() {
             {
                 albums?.map((album, i) => (
                     <Card key={i} sx={{
-                        height: "100%", p: 2, backgroundColor:"transparent"
+                        height: "100%", p: 2, backgroundColor: "transparent"
                     }}>
-                        <LazyLoadImage height="70%" alt={`Album cover for ${album.Title}`} src={album?.CoverImage}></LazyLoadImage>
-                        <Typography variant="h2">{album?.Rating}</Typography>
+                        <Box sx={{ maxHeight: "70%", maxWidth: "100%", display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+                            <LazyLoadImage alt={`Album cover for ${album.Title}`} src={album?.CoverImage}></LazyLoadImage>
+                            <div style={{
+                                maxHeight: "80%",
+                                maxWidth: "40%",
+                                borderRadius: "50%",
+                                backgroundColor: "slategrey",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                fontSize: "5em",
+                            }}>
+                                {album?.Rating}
+                            </div>
+
+                        </Box>
+                        <Box sx={{ maxHeight: "30%", display:"flex", flexDirection:"column", justifyContent:"end"}} >
+                            <Typography variant="h6" noWrap m={0}>{album?.Title}</Typography>
+                            <Typography variant="subtitle1" noWrap m={0}>{album?.ArtistsString}</Typography>
+                        </Box>
                     </Card>
                 ))
             }
-        </Carousel>
+        </Carousel >
 
     )
 }
