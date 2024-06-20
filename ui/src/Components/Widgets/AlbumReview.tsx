@@ -56,7 +56,7 @@ export default function AlbumReviewWidget() {
         <Carousel
             animation={"slide"}
             fullHeightHover={false}
-            interval={1000} //30000
+            interval={30000} 
             duration={500}
             navButtonsAlwaysInvisible
             indicators={false}
