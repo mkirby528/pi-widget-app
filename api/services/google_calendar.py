@@ -18,7 +18,8 @@ def get_calendar_events(num_events=25):
     calendar_items = [
         {
             "event_title": item.get("summary"),
-            "start_time": item.get("start",{}).get("date") or item.get("start",{}).get("dateTime"),
-            "end_time": item.get("end",{}).get("date") or item.get("end",{}).get("dateTime")
+            "start_time": item.get("start", {}).get("date") or item.get("start", {}).get("dateTime"),
+            "end_time": item.get("end", {}).get("date") or item.get("end", {}).get("dateTime"),
+            "color": item.get("colorId", "0")
         } for item in calendar_items]
     return calendar_items[:25]
