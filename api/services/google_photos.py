@@ -3,29 +3,13 @@ from os import getenv
 from constants import API_ENDPOINTS
 from logging import getLogger
 logger = getLogger("pi-app-api")
+from utils import get_google_access_token
 
-
-def get_access_token():
-    client_id = getenv("GOOGLE_CLIENT_ID", "")
-    client_secret=  getenv("GOOGLE_CLIENT_SECRET", "")
-    refresh_token = getenv("GOOGLE_REFRESH_TOKEN", "")
-
-    request_body = {
-        "client_id": client_id,
-        "client_secret": client_secret,
-        "refresh_token": refresh_token,
-        "grant_type": "refresh_token"
-
-    }
-    response = requests.post(API_ENDPOINTS.GOOGLE_REFRESH_TOKEN, request_body)
-    logger.info(f"Response status from refresh token call: {response.status_code}")
-    return response.json().get("access_token")
 
 
 def get_all_image_urls_for_album_id(album_id: str):
     photos = []
-    access_token = get_access_token()
-    print(access_token)
+    access_token = get_google_access_token()
     url = f"https://photoslibrary.googleapis.com/v1/mediaItems:search?access_token={
         access_token}"
     request_body = {

@@ -22,6 +22,7 @@ class PATHS():
     GET_METRO_TIMES = f"/api/metro"
     GET_ALBUMS_REVIEWS = f"/api/album-reviews"
     GET_GOOGLE_PHOTOS = f"/api/photos"
+    GET_CALENDAR_EVENTS = f"/api/calendar"
 
 
 @dataclass
