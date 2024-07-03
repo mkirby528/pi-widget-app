@@ -23,7 +23,7 @@ def get_all_image_urls_for_album_id(album_id: str):
         logger.info(f"Google photo response status: {response.status_code}")
         urls = [f"{photo.get("baseUrl")}=w2048-h1024"
                 for photo in response.json().get("mediaItems")]
-        photos.extend += urls
+        photos += urls
         next_page_token = response.json().get("nextPageToken", "")
         if not next_page_token:
             break
