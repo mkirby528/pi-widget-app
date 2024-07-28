@@ -45,16 +45,16 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    getGooglePhotos();
+  // useEffect(() => {
+  //   getGooglePhotos();
 
-    const intervalCall = setInterval(() => {
-      getGooglePhotos();
-    }, 60000 * 500); // 60 sec per album ~500 photos
-    return () => {
-      clearInterval(intervalCall);
-    };
-  }, []);
+  //   const intervalCall = setInterval(() => {
+  //     getGooglePhotos();
+  //   }, 60000 * 500); // 60 sec per album ~500 photos
+  //   return () => {
+  //     clearInterval(intervalCall);
+  //   };
+  // }, []);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);

@@ -4,6 +4,7 @@ import WeatherWidget from './Widgets/Weather';
 import MetroWidget from './Widgets/Metro';
 import AlbumReviewWidget from "./Widgets/AlbumReview"
 import PhotoWidget from './Widgets/PhotoWidget';
+import CalendarWidget from './Widgets/CalendarWidget';
 
 
 
@@ -21,10 +22,11 @@ function GridItem({widget}) {
 export default function HomePage(props: any) {
     return (
         <Grid container justifyContent="center" alignItems="center">
-                <GridItem widget={<WeatherWidget/>} />
-                <GridItem widget={<MetroWidget/>} />
-                <GridItem widget={<AlbumReviewWidget/>} />
-                <GridItem widget={<PhotoWidget photos={props.photos}/>} />
+                {/* <GridItem widget={<WeatherWidget/>} /> */}
+                {/* <GridItem widget={<MetroWidget/>} /> */}
+                {/* <GridItem widget={<AlbumReviewWidget/>} /> */}
+                {/* <GridItem widget={<PhotoWidget photos={props.photos}/>} /> */}
+                <GridItem widget={<CalendarWidget/>} />
 
         </Grid>
     )
