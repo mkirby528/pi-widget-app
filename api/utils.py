@@ -7,14 +7,6 @@ from logging import getLogger
 logger = getLogger("pi-app-api")
 from constants import API_ENDPOINTS
 
-def build_response(status_code: int, body: Union[dict, str, list]):
-    body = {"message": body} if isinstance(body,str) else body
-    return {
-        "statusCode": status_code,
-        "body": json.dumps(body,use_decimal=True)
-
-    }
-
 
 def get_google_access_token():
     client_id = getenv("GOOGLE_CLIENT_ID", "")
