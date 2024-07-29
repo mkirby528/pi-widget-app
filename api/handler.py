@@ -26,7 +26,7 @@ app = APIGatewayRestResolver(enable_validation=True)
 
 @app.get(PATHS.HEALTH_CHECK)
 def health_check():
-    return build_response(200, "SUCCESS")
+    return "Success"
 
 @app.get(PATHS.GET_WEATHER)
 def handle_get_weather():
@@ -52,6 +52,7 @@ def handle_get_calendar_events():
 
 @app.exception_handler(Exception)
 def handle_exception(error:Exception):
+    logger.error(f"Error: {str(error)}")
     return Response(status_code=500,body=f"Error: {str(error)}")
 
 
