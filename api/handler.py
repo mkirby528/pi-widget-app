@@ -43,7 +43,7 @@ def handle_get_album_reviews(n: Annotated[Optional[int], Query()] = 25):
 
 @app.get(PATHS.GET_GOOGLE_PHOTOS)
 def handle_get_google_photos():
-    return get_all_image_urls_for_album_id("AJXIcPcuTrNuHkKiFcK7_UjFGvqfrNkUZ52CDUuZXoC3tDE3c3iw_35ItkmdpeccSuEzfKTc9Qnv")
+    return get_all_image_urls_for_album_id("AJXIcPf71Enk2vv3nB3kJ_KvOt14cZPkM4rQSFn5_h4aMh5gaCR2quwgc1FDSXAhUI4_tOGXcQwZ")
 
 
 @app.get(PATHS.GET_CALENDAR_EVENTS)

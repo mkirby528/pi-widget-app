@@ -23,12 +23,12 @@ export default function CalendarWidget() {
 
         const timeout = setInterval(() => {
             if (calendarEvents.length === 0) {
-                console.log(`updating metro page from to 0`)
+                console.log(`updating calander page from ${pageNumber} from to 0`)
                 setPageNumber(0)
 
             } else {
                 const newPageNumber = (pageNumber + 1) % numPages
-                console.log(`updating metro page from ${pageNumber} to ${newPageNumber}`)
+                console.log(`updating calander page from ${pageNumber} to ${newPageNumber}`)
                 setPageNumber(newPageNumber)
             }
         }, 30000) // New Page 30 sec;
@@ -67,7 +67,6 @@ export default function CalendarWidget() {
         const day = date.getDate()
         const month = date.toLocaleDateString("default", { month: 'long' })
         const weekday = date.toLocaleDateString("default", { weekday: 'long' });
-        console.log(date, weekday, month, day)
         return (
             <Box sx={{ display: "flex", color: "black", flexDirection: "column", height: "100%", width: "80px", padding: "2px", m: 0 }}>
                 <Box sx={{ height: "20%", width: "100%", textAlign: "center", color: "white", backgroundColor: "red", fontWeight: "1000", fontSize: ".75em" }}>{month}</Box>
