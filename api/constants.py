@@ -2,6 +2,17 @@
 from dataclasses import dataclass
 from os import getenv
 
+API_BASE_PATH = "/api"
+
+
+class PATHS():
+    HEALTH_CHECK = f"/api/health"
+    GET_WEATHER = f"/api/weather"
+    GET_METRO_TIMES = f"/api/metro"
+    GET_ALBUMS_REVIEWS = f"/api/album-reviews"
+    GET_GOOGLE_PHOTOS = f"/api/photos"
+    GET_CALENDAR_EVENTS = f"/api/calendar"
+
 
 @dataclass
 class OPEN_WEATHER_PARAMETERS():
@@ -12,19 +23,7 @@ class OPEN_WEATHER_PARAMETERS():
     API_KEY = getenv("OPEN_WEATHER_API_KEY")
 
 
-API_BASE_PATH = "/api"
-
-
 @dataclass
-class PATHS():
-    HEALTH_CHECK = f"/api/health"
-    GET_WEATHER = f"/api/weather"
-    GET_METRO_TIMES = f"/api/metro"
-    GET_ALBUMS_REVIEWS = f"/api/album-reviews"
-    GET_GOOGLE_PHOTOS = f"/api/photos"
-    GET_CALENDAR_EVENTS = f"/api/calendar"
-
-
 @dataclass
 class API_ENDPOINTS():
     OPEN_WEATHER = f"https://api.openweathermap.org/data/3.0/onecall?lat={

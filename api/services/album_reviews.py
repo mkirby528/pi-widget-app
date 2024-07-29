@@ -15,9 +15,8 @@ def get_random_reviews(number):
     print("Getting all album reviews")
     albums = review_table.scan().get("Items")
     random_selection = random.choices(albums, k=number)
-    keys_to_select = ['Title', 'ArtistsString', 'ReleaseYear','CoverImage','HaveVinyl','Rating']
-    random_selection =[dict((k,album[k]) for k in keys_to_select if k in album) for album in random_selection]
-
-
-
+    keys_to_select = ['Title', 'ArtistsString',
+                      'ReleaseYear', 'CoverImage', 'HaveVinyl', 'Rating']
+    random_selection = [dict(
+        (k, album[k]) for k in keys_to_select if k in album) for album in random_selection]
     return random_selection
