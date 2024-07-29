@@ -113,6 +113,9 @@ Resources:
           GOOGLE_CLIENT_ID:  !Ref GoogleClientId
           GOOGLE_CLIENT_SECRET:  !Ref GoogleClientSecret
           GOOGLE_REFRESH_TOKEN: !Ref GoogleRefreshToken
+          HOME_ASSISTANT_HOST: !Ref HomeAssistantHost
+          HOME_ASSISTANT_TOKEN: !Ref HomeAssistantToken
+
           ENV: PROD
       Events:
         HttpApiAnyPathAnyMethod:
@@ -144,6 +147,15 @@ Parameters:
     Type: String
     Default: ""
     NoEcho: true
+  HomeAssistantToken:
+    Type: String
+    Default: ""
+    NoEcho: true
+  HomeAssistantHost:
+    Type: String
+    Default: ""
+    NoEcho: true
+    
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
   # Find out more about other implicit resources you can reference within SAM

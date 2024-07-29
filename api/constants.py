@@ -1,6 +1,10 @@
 # Paths
 from dataclasses import dataclass
 from os import getenv
+from enum import Enum
+from typing import Optional
+from pydantic import BaseModel, Field
+
 
 API_BASE_PATH = "/api"
 
@@ -12,6 +16,7 @@ class PATHS():
     GET_ALBUMS_REVIEWS = f"/api/album-reviews"
     GET_GOOGLE_PHOTOS = f"/api/photos"
     GET_CALENDAR_EVENTS = f"/api/calendar"
+    CONTROL_BEDROOM_LIGHTS = f"/api/smart-home/bedroom-lights"
 
 
 @dataclass
@@ -32,3 +37,19 @@ class API_ENDPOINTS():
     GOOGLE_REFRESH_TOKEN = f"https://www.googleapis.com/oauth2/v4/token"
     GOOGLE_PHOTOS = "https://photoslibrary.googleapis.com/v1/mediaItems:search?access_token={access_token}"
     GOOGLE_CALENDAR = "https://www.googleapis.com/calendar/v3/calendars/{calendar_id}/events"
+
+
+class LightStateEnum(str, Enum):
+    on = 'on'
+    off = 'off'
+
+
+class LightControlSettings(BaseModel):
+    class Config:  
+        use_enum_values = True  
+
+    state: LightStateEnum
+    entity_id: Optional[str] = Field(default=None)
+    brightness_pct: Optional[str] = Field(default=None)
+    color_temp_kelvin: Optional[int] = Field(default=None)
+    rgb_color: Optional[list[int]] = Field(default=None)

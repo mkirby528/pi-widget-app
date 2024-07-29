@@ -1,15 +1,17 @@
 from typing import List, Optional
 from aws_lambda_powertools.shared.types import Annotated
 from dotenv import load_dotenv, find_dotenv
-from constants import PATHS
+from constants import PATHS, LightControlSettings
 from services.open_weather import get_weather
 from services.wmata import get_next_trains
 from services.album_reviews import get_random_reviews
 from services.google_photos import get_all_image_urls_for_album_id
 from services.google_calendar import get_calendar_events
+from services.home_assistant import control_lights
 from aws_lambda_powertools.event_handler import APIGatewayRestResolver, Response
 import logging
 from aws_lambda_powertools.event_handler.openapi.params import Query
+
 
 load_dotenv(find_dotenv())
 
@@ -53,10 +55,17 @@ def handle_get_calendar_events():
     return get_calendar_events()
 
 
+
+@app.post(PATHS.CONTROL_BEDROOM_LIGHTS)
+def handle_control_bedroom_lights(settings: LightControlSettings):
+    settings.entity_id = "light.bedroom_lights"
+    control_lights(settings)
+
 @app.exception_handler(Exception)
 def handle_exception(error: Exception):
     logger.error(f"Error: {str(error)}")
     return Response(status_code=500, body=f"Error: {str(error)}")
+
 
 
 def lambda_handler(event, context):
