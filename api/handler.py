@@ -38,7 +38,7 @@ def handle_get_metro_times():
 
 
 @app.get(PATHS.GET_ALBUMS_REVIEWS)
-def handle_get_album_reviews(n: Annotated[Optional[int], Query()] = None):
+def handle_get_album_reviews(n: Annotated[Optional[int], Query()] = 25):
     return get_random_reviews(n)
 
 @app.get(PATHS.GET_GOOGLE_PHOTOS)
