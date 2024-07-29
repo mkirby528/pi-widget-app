@@ -1,13 +1,13 @@
-import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import Drawer from '@mui/material/Drawer';
 
 export default function TemporaryDrawer(props: any) {
     return (
-        <SwipeableDrawer PaperProps={{
+        <Drawer PaperProps={{
             sx: { width: "40%" },
         }}
-            variant='temporary' open={props.isDrawerOpen} onOpen={props.toggleDrawer(true)} onClose={props.toggleDrawer(false)}>
+            variant='temporary' open={props.isDrawerOpen} onClose={props.toggleDrawer(false)}>
             what goes here
             <a href='/photos'>phots</a>
-        </SwipeableDrawer>
+        </Drawer>
     );
 }

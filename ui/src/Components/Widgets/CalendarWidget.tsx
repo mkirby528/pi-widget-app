@@ -31,7 +31,7 @@ export default function CalendarWidget() {
                 console.log(`updating metro page from ${pageNumber} to ${newPageNumber}`)
                 setPageNumber(newPageNumber)
             }
-        }, 30000) // New Page 10 sec;
+        }, 30000) // New Page 30 sec;
 
         return () => {
             clearTimeout(timeout);

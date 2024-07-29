@@ -6,8 +6,6 @@ import AlbumReviewWidget from "./Widgets/AlbumReview"
 import PhotoWidget from './Widgets/PhotoWidget';
 import CalendarWidget from './Widgets/CalendarWidget';
 
-
-
 function GridItem({widget}) {
     return (
         <Grid display="flex" justifyContent="center" alignItems="center" sx={{ height: "47.5vh" }} xs={4}>
