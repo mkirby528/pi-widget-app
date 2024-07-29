@@ -60,6 +60,7 @@ def handle_get_calendar_events():
 def handle_control_bedroom_lights(settings: LightControlSettings):
     settings.entity_id = "light.bedroom_lights"
     control_lights(settings)
+    return Response(status_code=201)
 
 @app.exception_handler(Exception)
 def handle_exception(error: Exception):

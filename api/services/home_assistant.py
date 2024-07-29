@@ -12,6 +12,8 @@ def control_lights(settings: LightControlSettings):
     headers = {
         "Authorization": f"Bearer {getenv("HOME_ASSISTANT_TOKEN")}"
     }
-
+    
+    print(f"Calling Home Assistant to configure lights with settings: {data}") 
     response = requests.post(url=request_url, data=data, headers=headers)
-    return response.status_code < 300
+    if response.status_code > 299:
+        raise Exception(f"Bad response from home assistent: Code: {response.status_code}, content: {response.content}")
