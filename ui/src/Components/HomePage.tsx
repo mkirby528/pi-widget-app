@@ -9,7 +9,7 @@ import CalendarWidget from './Widgets/CalendarWidget';
 function GridItem({widget}) {
     return (
         <Grid display="flex" justifyContent="center" alignItems="center" sx={{ height: "47.5vh" }} xs={4}>
-            <Box display="flex" justifyContent="center" alignItems="center" component="section" sx={{
+            <Box  display="flex" justifyContent="center" alignItems="center" component="section" sx={{
                 height: "95%",
                 width: "95%",
                 backgroundColor: "transparent"

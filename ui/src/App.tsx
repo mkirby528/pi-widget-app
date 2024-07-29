@@ -1,11 +1,12 @@
 import './App.css';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import { AppBar, IconButton, Toolbar, Typography } from '@mui/material';
+import { AppBar, Divider, IconButton, Toolbar, Typography } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import {
   createBrowserRouter,
+  Outlet,
   RouterProvider,
 } from "react-router-dom";
 
@@ -63,37 +64,48 @@ function App() {
 
   const router = createBrowserRouter([
     {
-      path: "/",
-      element: <HomePage photos={googlePhotos} />,
-      errorElement: <div>whoopsidoodle</div>
+      element: (
+        <>
+          <AppBar position="sticky" sx={{ height: '5vh' }} >
+            <Toolbar variant="dense" sx={{ minHeight: "0%" }} >
+              <IconButton
+                onClick={toggleDrawer(true)}
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 1 }}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h6" component="div">
+                Matthew
+              </Typography>
+            </Toolbar>
+          </AppBar>
+          <TemporaryDrawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
+
+          <Outlet />
+        </>
+      ),
+      children: [
+        {
+          path: "/",
+          element: <HomePage photos={googlePhotos} />,
+          errorElement: <div>whoopsidoodle</div>
+        },
+        {
+          path: "/photos",
+          element: <PhotoWidget photos={googlePhotos} />,
+          errorElement: <div>whoopsidoodle</div>
+        }
+      ],
     },
-    {
-      path: "/photos",
-      element: <PhotoWidget photos={googlePhotos} />,
-      errorElement: <div>whoopsidoodle</div>
-    }
   ]);
+
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar position="sticky" sx={{ height: '5vh' }} >
-        <Toolbar variant="dense" sx={{ minHeight: "0%" }} >
-          <IconButton
-            onClick={toggleDrawer(true)}
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 1 }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" component="div">
-            Matthew
-          </Typography>
-          <a href="/">HOME PAGE </a>
-        </Toolbar>
-      </AppBar>
-      <TemporaryDrawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
       <main style={{ height: "95vh" }}>
         <RouterProvider router={router} />
       </main>
