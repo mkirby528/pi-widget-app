@@ -108,7 +108,7 @@ export default function CalendarWidget() {
     return (
         <Card sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", backgroundColor: "primary.main", height: "100%", width: "100%", overflow: "hidden" }}>
             {pageEvents.map(function (event: CalendarEvent, i) {
-                return <Box key={event.event_title + event.start_time} sx={{ backgroundColor:getBGColor(event.color),overflow:"hidden",marginTop: "1%",height: "30%", width: "100%",display: "flex", flexDirection: "row",  justifyContent: "space-between"}}>
+                return <Box key={event.event_title + event.start_time} sx={{ backgroundColor:getBGColor(event.color),overflow:"hidden",marginTop: "1%",height: "30%", width: "90%",display: "flex", flexDirection: "row",  justifyContent: "space-between"}}>
             <CalendarIcon datestring={event.start_time} />
             <div style={{ width: "calc(100% - 80px)", textAlign:"center",display: "flex", flexDirection: "column" }}>
                 <div style={{fontWeight:"bold", fontSize:"1.25em"}} >{event.event_title}</div>
