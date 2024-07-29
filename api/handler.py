@@ -2,7 +2,6 @@ from typing import List, Optional
 from aws_lambda_powertools.shared.types import Annotated  
 from dotenv import load_dotenv, find_dotenv
 from constants import PATHS
-from utils import build_response
 from services.open_weather import get_weather
 from services.wmata import get_next_trains
 from services.album_reviews import get_random_reviews
