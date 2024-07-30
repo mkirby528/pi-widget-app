@@ -56,9 +56,14 @@ def handle_get_calendar_events():
 
 
 
+@app.post(PATHS.CONTROL_LIVINGROOM_LIGHTS)
+def handle_control_bedroom_lights(settings: LightControlBody):
+    settings.config.entity_id = "light.livingroom_lights"
+    control_lights(settings)
+    return Response(status_code=201)
+
 @app.post(PATHS.CONTROL_BEDROOM_LIGHTS)
 def handle_control_bedroom_lights(settings: LightControlBody):
-    logger.info("Handling request to control lights....")
     settings.config.entity_id = "light.bedroom_lights"
     control_lights(settings)
     return Response(status_code=201)

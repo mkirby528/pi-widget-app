@@ -17,6 +17,7 @@ class PATHS():
     GET_GOOGLE_PHOTOS = f"/api/photos"
     GET_CALENDAR_EVENTS = f"/api/calendar"
     CONTROL_BEDROOM_LIGHTS = f"/api/smart-home/bedroom-lights"
+    CONTROL_LIVINGROOM_LIGHTS = f"/api/smart-home/bedroom-lights"
 
 
 @dataclass
