@@ -11,8 +11,9 @@ export default function LightsPage(props: any) {
     const [value, setValue] = React.useState(['off']);
 
     return (
-        <Grid p={2} container justifyContent="left" alignItems="center">
-            <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", border: "2px solid red" }}>
+        <Grid p={2} container sx={{ display: "flex", flexDirection: "column", height: "100%", width: "100%", justifyContent: "left", alignItems: "top" }}>
+
+            <Box sx={{ display: "flex", height: "50%", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
                 Living Room Lights
                 <ToggleButtonGroup
                     color="primary"
@@ -30,6 +31,43 @@ export default function LightsPage(props: any) {
                                 "mode": newValue
                             }
                             const response = await axios.post("/api/smart-home/living-room-lights", request_body)
+                            console.log(response);
+                        }
+                    }}
+                >
+                    <ToggleButton key="OFF" value="OFF" >
+                        <NightlightRoundIcon />
+                    </ToggleButton>
+                    <ToggleButton key="DIM" value="DIM">
+                        <Brightness5Icon />
+                    </ToggleButton>
+                    <ToggleButton key="HALF" value="HALF">
+                        <Brightness6Icon />
+                    </ToggleButton>
+                    <ToggleButton key="FULL" value="FULL">
+                        <Brightness7Icon />
+                    </ToggleButton>
+                </ToggleButtonGroup>
+            </Box>
+
+            <Box sx={{ display: "flex", height: "50%", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+                Bedroom Lights
+                <ToggleButtonGroup
+                    color="primary"
+                    exclusive
+                    value={value}
+                    size='large'
+                    onChange={async (event, newValue) => {
+                        if (newValue !== null) {
+
+
+                            const state = newValue === "OFF" ? "OFF" : "ON"
+                            setValue(newValue);
+                            const request_body = {
+                                "state": state,
+                                "mode": newValue
+                            }
+                            const response = await axios.post("/api/smart-home/bedroom-lights", request_body)
                             console.log(response);
                         }
                     }}

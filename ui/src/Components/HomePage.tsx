@@ -5,11 +5,12 @@ import MetroWidget from './Widgets/Metro';
 import AlbumReviewWidget from "./Widgets/AlbumReview"
 import PhotoWidget from './Widgets/PhotoWidget';
 import CalendarWidget from './Widgets/CalendarWidget';
+import LightsPage from './LightsPage';
 
-function GridItem({widget}) {
+function GridItem({ widget }) {
     return (
         <Grid display="flex" justifyContent="center" alignItems="center" sx={{ height: "47.5vh" }} xs={4}>
-            <Box  display="flex" justifyContent="center" alignItems="center" component="section" sx={{
+            <Box display="flex" justifyContent="center" alignItems="center" component="section" sx={{
                 height: "95%",
                 width: "95%",
                 backgroundColor: "transparent"
@@ -20,12 +21,12 @@ function GridItem({widget}) {
 export default function HomePage(props: any) {
     return (
         <Grid container justifyContent="center" alignItems="center">
-                <GridItem widget={<WeatherWidget/>} />
-                <GridItem widget={<MetroWidget/>} />
-                <GridItem widget={<AlbumReviewWidget/>} />
-                <GridItem widget={<PhotoWidget photos={props.photos}/>} />
-                <GridItem widget={<CalendarWidget/>} />
-
-        </Grid>
+            <GridItem widget={<WeatherWidget />} />
+            <GridItem widget={<MetroWidget />} />
+            <GridItem widget={<AlbumReviewWidget />} />
+            <GridItem widget={<PhotoWidget photos={props.photos} />} />
+            <GridItem widget={<CalendarWidget />} />
+            <GridItem widget={<LightsPage />} />
+        </Grid >
     )
 }
