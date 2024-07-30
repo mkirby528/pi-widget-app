@@ -11,7 +11,7 @@ export default function LightsPage(props: any) {
     const [value, setValue] = React.useState(['off']);
 
     return (
-        <Grid p={2} container sx={{ display: "flex", flexDirection: "column", height: "100%", width: "100%", justifyContent: "left", alignItems: "top" }}>
+        <Grid p={2} container sx={{ backgroundColor: "slategrey",display: "flex", flexDirection: "column", height: "100%", width: "100%", justifyContent: "left", alignItems: "top" }}>
 
             <Box sx={{ display: "flex", height: "50%", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
                 Living Room Lights
