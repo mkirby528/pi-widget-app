@@ -1,7 +1,7 @@
 from typing import List, Optional
 from aws_lambda_powertools.shared.types import Annotated
 from dotenv import load_dotenv, find_dotenv
-from constants import PATHS, LightControlSettings
+from constants import PATHS, LightControlBody
 from services.open_weather import get_weather
 from services.wmata import get_next_trains
 from services.album_reviews import get_random_reviews
@@ -57,9 +57,9 @@ def handle_get_calendar_events():
 
 
 @app.post(PATHS.CONTROL_BEDROOM_LIGHTS)
-def handle_control_bedroom_lights(settings: LightControlSettings):
+def handle_control_bedroom_lights(settings: LightControlBody):
     logger.info("Handling request to control lights....")
-    settings.entity_id = "light.bedroom_lights"
+    settings.config.entity_id = "light.bedroom_lights"
     control_lights(settings)
     return Response(status_code=201)
 

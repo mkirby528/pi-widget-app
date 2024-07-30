@@ -29,7 +29,6 @@ class OPEN_WEATHER_PARAMETERS():
 
 
 @dataclass
-@dataclass
 class API_ENDPOINTS():
     OPEN_WEATHER = f"https://api.openweathermap.org/data/3.0/onecall?lat={
         OPEN_WEATHER_PARAMETERS.LATTITUDE}&lon={OPEN_WEATHER_PARAMETERS.LONGITUDE}&appid={OPEN_WEATHER_PARAMETERS.API_KEY}&exclude={OPEN_WEATHER_PARAMETERS.EXCLUDE}&units={OPEN_WEATHER_PARAMETERS.UNITS}"
@@ -38,18 +37,36 @@ class API_ENDPOINTS():
     GOOGLE_PHOTOS = "https://photoslibrary.googleapis.com/v1/mediaItems:search?access_token={access_token}"
     GOOGLE_CALENDAR = "https://www.googleapis.com/calendar/v3/calendars/{calendar_id}/events"
 
+# Home Assistant
+
 
 class LightStateEnum(str, Enum):
-    on = 'on'
-    off = 'off'
+    ON = 'ON'
+    OFF = 'OFF'
 
 
-class LightControlSettings(BaseModel):
-    class Config:  
-        use_enum_values = True  
+class LightModeEnum(str, Enum):
+    STANDARD = 'STANDARD'
+    DIM = 'DIM'
+    CUSTOM = 'CUSTOM'
 
-    state: LightStateEnum
+
+class HomeAssistantLightConfig(BaseModel):
     entity_id: Optional[str] = Field(default=None)
-    brightness_pct: Optional[str] = Field(default=None)
-    color_temp_kelvin: Optional[int] = Field(default=None)
+    brightness_pct: Optional[int] = Field(default=None)
+    kelvin: Optional[int] = Field(default=None)
     rgb_color: Optional[list[int]] = Field(default=None)
+
+
+class LightControlBody(BaseModel):
+    class Config:
+        use_enum_values = True
+
+    state: LightStateEnum = Field(default=LightStateEnum.ON)
+    mode: LightModeEnum = Field(default=None)
+    config: Optional[HomeAssistantLightConfig] = Field(default=HomeAssistantLightConfig())
+
+class LightModeConfigurations(Enum):
+    STANDARD = HomeAssistantLightConfig(brightness_pct=100,kelvin=2000)
+    DIM = HomeAssistantLightConfig(brightness_pct=10,kelvin=2000)
+    
