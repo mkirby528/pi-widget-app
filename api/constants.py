@@ -47,8 +47,10 @@ class LightStateEnum(str, Enum):
 
 
 class LightModeEnum(str, Enum):
-    STANDARD = 'STANDARD'
+    FULL = 'FULL'
+    HALF = "HALF"
     DIM = 'DIM'
+    OFF = 'OFF'
     CUSTOM = 'CUSTOM'
 
 
@@ -65,9 +67,12 @@ class LightControlBody(BaseModel):
 
     state: LightStateEnum = Field(default=LightStateEnum.ON)
     mode: LightModeEnum = Field(default=None)
-    config: Optional[HomeAssistantLightConfig] = Field(default=HomeAssistantLightConfig())
+    config: Optional[HomeAssistantLightConfig] = Field(
+        default=HomeAssistantLightConfig())
+
 
 class LightModeConfigurations(Enum):
-    STANDARD = HomeAssistantLightConfig(brightness_pct=100,kelvin=2000)
-    DIM = HomeAssistantLightConfig(brightness_pct=10,kelvin=2000)
-    
+    FULL = HomeAssistantLightConfig(brightness_pct=100, kelvin=2000)
+    HALF = HomeAssistantLightConfig(brightness_pct=50, kelvin=2000)
+    DIM = HomeAssistantLightConfig(brightness_pct=10, kelvin=2000)
+    OFF = HomeAssistantLightConfig(brightness_pct=0)

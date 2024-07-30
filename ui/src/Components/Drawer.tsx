@@ -17,7 +17,7 @@ export default function TemporaryDrawer(props: any) {
         }}
             variant='temporary' open={props.isDrawerOpen} onClose={props.toggleDrawer(false)}>
             <Box
-                onClick={()=>{
+                onClick={() => {
                     navigate('/');
                 }}
                 sx={{
@@ -30,23 +30,39 @@ export default function TemporaryDrawer(props: any) {
                     justifyContent: "center"
 
                 }}>
-                    Home
+                Home
             </Box>
             <Box
-            onClick={()=>{
-                navigate('/photos');
-            }}
-            sx={{
-                height: "20%",
-                backgroundColor: "#7CB9E8",
-                m: 1,
-                width: "80%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center"
+                onClick={() => {
+                    navigate('/photos');
+                }}
+                sx={{
+                    height: "20%",
+                    backgroundColor: "#7CB9E8",
+                    m: 1,
+                    width: "80%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
 
-            }}>
+                }}>
                 Photos
+            </Box>
+            <Box
+                onClick={() => {
+                    navigate('/lights');
+                }}
+                sx={{
+                    height: "20%",
+                    backgroundColor: "#7CB9E8",
+                    m: 1,
+                    width: "80%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
+
+                }}>
+                Lights
             </Box>
         </Drawer>
 

@@ -15,6 +15,7 @@ import TemporaryDrawer from "./Components/Drawer"
 import HomePage from './Components/HomePage';
 import axios from 'axios';
 import PhotoWidget from './Components/Widgets/PhotoWidget';
+import LightsPage from './Components/LightsPage';
 
 
 const theme = createTheme({
@@ -46,16 +47,16 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    getGooglePhotos();
+  // useEffect(() => {
+  //   getGooglePhotos();
 
-    const intervalCall = setInterval(() => {
-      getGooglePhotos();
-    }, 60000 * 500); // 60 sec per album ~500 photos
-    return () => {
-      clearInterval(intervalCall);
-    };
-  }, []);
+  //   const intervalCall = setInterval(() => {
+  //     getGooglePhotos();
+  //   }, 60000 * 500); // 60 sec per album ~500 photos
+  //   return () => {
+  //     clearInterval(intervalCall);
+  //   };
+  // }, []);
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -97,7 +98,13 @@ function App() {
           path: "/photos",
           element: <PhotoWidget photos={googlePhotos} />,
           errorElement: <div>whoopsidoodle</div>
+        },
+        {
+          path: "/lights",
+          element: <LightsPage/>,
+          errorElement: <div>whoopsidoodle</div>
         }
+
       ],
     },
   ]);

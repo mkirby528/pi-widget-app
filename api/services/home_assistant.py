@@ -13,11 +13,14 @@ def control_lights(settings: LightControlBody):
     if settings.state == LightStateEnum.ON:
         action = "turn_on"
         match settings.mode:
-            case LightModeEnum.STANDARD:
-                data = LightModeConfigurations.STANDARD.value
+            case LightModeEnum.FULL:
+                data = LightModeConfigurations.FULL.value
+            case LightModeEnum.HALF:
+                data = LightModeConfigurations.HALF.value
             case LightModeEnum.DIM:
                 data = LightModeConfigurations.DIM.value
             case LightModeEnum.CUSTOM:
+                # use values from config body field if custom
                 data = settings.config
         data.entity_id = entity_id
         data = data.model_dump(exclude_none=True)
