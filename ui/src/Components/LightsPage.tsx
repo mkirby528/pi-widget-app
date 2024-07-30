@@ -8,7 +8,8 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import axios from 'axios';
 
 export default function LightsPage(props: any) {
-    const [value, setValue] = React.useState(['off']);
+    const [livingRoomValue, setLivingRoomValue] = React.useState(['off']);
+    const [bedroomValue, setBedroomValue] = React.useState(['off']);
 
     return (
         <Grid p={2} container sx={{ backgroundColor: "slategrey",display: "flex", flexDirection: "column", height: "100%", width: "100%", justifyContent: "left", alignItems: "top" }}>
@@ -18,14 +19,14 @@ export default function LightsPage(props: any) {
                 <ToggleButtonGroup
                     color="primary"
                     exclusive
-                    value={value}
+                    value={livingRoomValue}
                     size='large'
                     onChange={async (event, newValue) => {
                         if (newValue !== null) {
 
 
                             const state = newValue === "OFF" ? "OFF" : "ON"
-                            setValue(newValue);
+                            setLivingRoomValue(newValue);
                             const request_body = {
                                 "state": state,
                                 "mode": newValue
@@ -55,14 +56,14 @@ export default function LightsPage(props: any) {
                 <ToggleButtonGroup
                     color="primary"
                     exclusive
-                    value={value}
+                    value={bedroomValue}
                     size='large'
                     onChange={async (event, newValue) => {
                         if (newValue !== null) {
 
 
                             const state = newValue === "OFF" ? "OFF" : "ON"
-                            setValue(newValue);
+                            setBedroomValue(newValue);
                             const request_body = {
                                 "state": state,
                                 "mode": newValue
