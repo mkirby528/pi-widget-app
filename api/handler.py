@@ -55,8 +55,7 @@ def handle_get_calendar_events():
     return get_calendar_events()
 
 
-
-@app.post(PATHS.CONTROL_LIVINGROOM_LIGHTS)
+@app.post(PATHS.CONTROL_LIVING_ROOM_LIGHTS)
 def handle_control_bedroom_lights(settings: LightControlBody):
     settings.config.entity_id = "light.livingroom_lights"
     control_lights(settings)
