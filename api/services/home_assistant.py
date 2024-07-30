@@ -1,6 +1,8 @@
 from constants import LightControlSettings, LightStateEnum
 import requests
 from os import getenv
+import logging
+logger = logging.getLogger("pi-app-api")
 
 
 def control_lights(settings: LightControlSettings):
@@ -13,7 +15,7 @@ def control_lights(settings: LightControlSettings):
         "Authorization": f"Bearer {getenv("HOME_ASSISTANT_TOKEN")}"
     }
     
-    print(f"Calling Home Assistant to configure lights with settings: {data}") 
+    logger.info(f"Calling Home Assistant to configure lights with settings: {data}") 
     response = requests.post(url=request_url, data=data, headers=headers)
     if response.status_code > 299:
         raise Exception(f"Bad response from home assistent: Code: {response.status_code}, content: {response.content}")
