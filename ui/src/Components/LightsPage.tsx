@@ -10,14 +10,13 @@ import { CirclePicker } from "react-color"
 
 
 interface TabPanelProps {
-    children?: React.ReactNode;
     index: number;
     selectedTab: number;
 
 }
 
-function CustomTabPanel(props: TabPanelProps) {
-    const { children, selectedTab, index } = props;
+function LightControlTab(props: TabPanelProps) {
+    const  {selectedTab, index } = props;
     const [livingRoomValue, setLivingRoomValue] = React.useState(['off']);
     const [bedroomValue, setBedroomValue] = React.useState(['off']);
 
@@ -31,7 +30,7 @@ function CustomTabPanel(props: TabPanelProps) {
                 "state": state,
                 "mode": newValue
             }
-            const response = await axios.post("/api/smart-home/living-room-lights", request_body)
+            await axios.post("/api/smart-home/living-room-lights", request_body)
         }
     }
     async function handleBedroomBrightnessChange(event, newValue) {
@@ -138,10 +137,10 @@ export default function LightsPage(props: any) {
                 <Tab label="Bedroom" />
             </Tabs>
 
-            <CustomTabPanel selectedTab={selectedTab} index={0}></CustomTabPanel>
-            <CustomTabPanel selectedTab={selectedTab} index={1}>
+            <LightControlTab selectedTab={selectedTab} index={0}></LightControlTab>
+            <LightControlTab selectedTab={selectedTab} index={1}>
 
-</CustomTabPanel>
+</LightControlTab>
         </Grid >
     )
 }

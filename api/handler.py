@@ -8,9 +8,10 @@ from services.album_reviews import get_random_reviews
 from services.google_photos import get_all_image_urls_for_album_id
 from services.google_calendar import get_calendar_events
 from services.home_assistant import control_lights
-from aws_lambda_powertools.event_handler import APIGatewayRestResolver, Response
+from aws_lambda_powertools.event_handler import APIGatewayRestResolver, Response, content_types
 import logging
 from aws_lambda_powertools.event_handler.openapi.params import Query
+from aws_lambda_powertools.event_handler.exceptions import NotFoundError
 
 
 load_dotenv(find_dotenv())
@@ -59,19 +60,26 @@ def handle_get_calendar_events():
 def handle_control_bedroom_lights(settings: LightControlBody):
     settings.config.entity_id = "light.living_room_lights"
     control_lights(settings)
-    return Response(status_code=201)
+    return Response(status_code=204)
+
 
 @app.post(PATHS.CONTROL_BEDROOM_LIGHTS)
 def handle_control_bedroom_lights(settings: LightControlBody):
     settings.config.entity_id = "light.bedroom_lights"
     control_lights(settings)
-    return Response(status_code=201)
+    return Response(status_code=204)
+
 
 @app.exception_handler(Exception)
 def handle_exception(error: Exception):
     logger.error(f"Error: {str(error)}")
     return Response(status_code=500, body=f"Error: {str(error)}")
 
+
+@app.not_found
+def handle_not_found_errors(exc: NotFoundError) -> Response:
+    logger.info(f"Not found route: {app.current_event.path}")
+    return Response(status_code=404, content_type=content_types.TEXT_PLAIN, body="Route not found.")
 
 
 def lambda_handler(event, context):
