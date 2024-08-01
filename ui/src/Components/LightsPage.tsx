@@ -17,7 +17,7 @@ interface TabPanelProps {
 }
 
 function CustomTabPanel(props: TabPanelProps) {
-    const { children, selectedTab, index, ...other } = props;
+    const { children, selectedTab, index } = props;
     const [livingRoomValue, setLivingRoomValue] = React.useState(['off']);
     const [bedroomValue, setBedroomValue] = React.useState(['off']);
 
@@ -39,12 +39,12 @@ function CustomTabPanel(props: TabPanelProps) {
 
 
             const state = newValue === "OFF" ? "OFF" : "ON"
-            setLivingRoomValue(newValue);
+            setBedroomValue(newValue);
             const request_body = {
                 "state": state,
                 "mode": newValue
             }
-            const response = await axios.post("/api/smart-home/bedroom-lights", request_body)
+            await axios.post("/api/smart-home/bedroom-lights", request_body)
         }
     }
     async function handleLivingRoomColorChange(color, event) {
@@ -59,11 +59,9 @@ function CustomTabPanel(props: TabPanelProps) {
         }
         try {
             console.log("Calling living-room lights api...")
-            const response = await axios.post("/api/smart-home/living-room-lights", request_body)
-            console.log(response)
+            await axios.post("/api/smart-home/living-room-lights", request_body)
 
         } catch (e) {
-            console.log("matthew")
             console.log(e)
         }
 
@@ -80,11 +78,9 @@ function CustomTabPanel(props: TabPanelProps) {
         }
         try {
             console.log("Calling living-room lights api...")
-            const response = await axios.post("/api/smart-home/bedroom-lights", request_body)
-            console.log(response)
+            await axios.post("/api/smart-home/bedroom-lights", request_body)
 
         } catch (e) {
-            console.log("matthew")
             console.log(e)
         }
 
@@ -104,9 +100,9 @@ function CustomTabPanel(props: TabPanelProps) {
             {selectedTab === index && <Box sx={{ p: 3 }}>                <ToggleButtonGroup
                 color="primary"
                 exclusive
-                value={selectedTab == 0 ? livingRoomValue : bedroomValue}
+                value={selectedTab === 0 ? livingRoomValue : bedroomValue}
                 size='large'
-                onChange={selectedTab == 0 ? handleLivingRoomBrightnessChange : handleBedroomBrightnessChange}
+                onChange={selectedTab === 0 ? handleLivingRoomBrightnessChange : handleBedroomBrightnessChange}
             >
                 <ToggleButton key="OFF" value="OFF" >
                     <NightlightRoundIcon />
@@ -121,7 +117,7 @@ function CustomTabPanel(props: TabPanelProps) {
                     <Brightness7Icon />
                 </ToggleButton>
             </ToggleButtonGroup>
-                <CirclePicker onChange={selectedTab == 0 ? handleLivingRoomColorChange : handleBedroomColorChange} /></Box>}
+                <CirclePicker onChange={selectedTab === 0 ? handleLivingRoomColorChange : handleBedroomColorChange} /></Box>}
         </div>
     );
 }
