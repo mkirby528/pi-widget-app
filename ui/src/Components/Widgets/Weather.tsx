@@ -79,9 +79,9 @@ export default function WeatherWidget() {
             </Box>
             <Box sx={{ width: "95%", display: "flex", flexDirection: "row", justifyContent: "space-around" }}>
 
-                <div style={{ display: "flex", flexDirection: "row" }}><img src="/assets/sunrise.png"></img> <Typography >{new Date(weather?.current?.sunrise * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Typography></div>
-                <div style={{ display: "flex", flexDirection: "row" }}><img src="/assets/sunset.png"></img> <Typography >{new Date(weather?.current?.sunset * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Typography></div>
-                <div style={{ display: "flex", flexDirection: "row" }}><img src="/assets/wind.png"></img> <Typography >{Math.round(weather?.current?.wind_speed)} mph</Typography></div>
+                <div style={{ display: "flex", flexDirection: "row" }}><img src="/assets/sunrise.png" alt="Sunrise icon"></img> <Typography >{new Date(weather?.current?.sunrise * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Typography></div>
+                <div style={{ display: "flex", flexDirection: "row" }}><img src="/assets/sunset.png" alt="Sunset icon"></img> <Typography >{new Date(weather?.current?.sunset * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</Typography></div>
+                <div style={{ display: "flex", flexDirection: "row" }}><img src="/assets/wind.png" alt="Wind Icon"></img> <Typography >{Math.round(weather?.current?.wind_speed)} mph</Typography></div>
 
             </Box>
 

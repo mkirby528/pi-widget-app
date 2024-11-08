@@ -17,7 +17,6 @@ import axios from 'axios';
 import PhotoWidget from './Components/Widgets/PhotoWidget';
 import LightsPage from './Components/LightsPage';
 import FantasyFootballPage from './Components/FantasyFootballPage';
-import { Margin } from '@mui/icons-material';
 
 
 const theme = createTheme({
@@ -145,9 +144,4 @@ function App() {
     </ThemeProvider>
   );
 }
-
 export default App;
-function useCallback(arg0: () => void, arg1: undefined[]) {
-  throw new Error('Function not implemented.');
-}
-
