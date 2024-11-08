@@ -115,10 +115,10 @@ def get_matchup_score_string(matchup):
     return f"{matchup.home_team.team_name}: {matchup.home_score} - {matchup.away_team.team_name}: {matchup.away_score}"
 
 
-espn_id = "{CA78A876-13F7-4376-872B-EBE0C959CC6D}"
-s2 = "AEBAlDJI5n4LObdTJNpZWEzsBseSFf6GFy3QLjnelnrV9XRD7YNINwDxb320pw1E9OoU7vf7fZUSbb%2B5bWj0CoWFxTJZnXoAHxtgSNrmk9ARxqlQb%2Bm2Yfrh9hE5AeqmeFPyvvdinuT2uBkWWa6VuIUAKYLJmxcFSwbuRjdw1qImHnMvdKjVJVgEGUXWh09wwAq7Jh7V%2FbkKidVkVKi0qX3paQBe2XOE73SBYrYR7FBN7cxFdYFFgW9h%2Fp1PAHYRAKGkLXU%2Fu00cn6sg%2BnZpsX7HOVLcU7BerZkmoxzzeBsnyg%3D%3D"
-swid = "a9b40a8c-447a-49da-945b-1631aa8da2d0"
-ids = ["30927049", "1777064", "1181055176", "960905765"]
+espn_id = ""
+s2 = ""
+swid = ""
+ids = []
 
 my_leagues = init_leagues()
 my_teams = get_my_teams(my_leagues)
