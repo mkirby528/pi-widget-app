@@ -1,5 +1,4 @@
-from typing import List, Optional
-from aws_lambda_powertools.shared.types import Annotated
+from typing import Annotated, Optional
 from dotenv import load_dotenv, find_dotenv
 from constants import PATHS, LightControlBody
 from services.open_weather import get_weather
