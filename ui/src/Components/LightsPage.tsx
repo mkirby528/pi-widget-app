@@ -16,7 +16,7 @@ interface TabPanelProps {
 }
 
 function LightControlTab(props: TabPanelProps) {
-    const  {selectedTab, index } = props;
+    const { selectedTab, index } = props;
     const [livingRoomValue, setLivingRoomValue] = React.useState(['off']);
     const [bedroomValue, setBedroomValue] = React.useState(['off']);
 
@@ -137,10 +137,8 @@ export default function LightsPage(props: any) {
                 <Tab label="Bedroom" />
             </Tabs>
 
-            <LightControlTab selectedTab={selectedTab} index={0}></LightControlTab>
-            <LightControlTab selectedTab={selectedTab} index={1}>
-
-</LightControlTab>
+            <LightControlTab selectedTab={selectedTab} index={0} />
+            <LightControlTab selectedTab={selectedTab} index={1} />
         </Grid >
     )
 }

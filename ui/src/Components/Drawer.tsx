@@ -64,6 +64,22 @@ export default function TemporaryDrawer(props: any) {
                 }}>
                 Lights
             </Box>
+            <Box
+                onClick={() => {
+                    navigate('/fantasy-football');
+                }}
+                sx={{
+                    height: "20%",
+                    backgroundColor: "#7CB9E8",
+                    m: 1,
+                    width: "80%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
+
+                }}>
+                Fantasy Football
+            </Box>
         </Drawer>
 
     );

@@ -22,11 +22,11 @@ export default function HomePage(props: any) {
     return (
         <Grid container justifyContent="center" alignItems="center">
             <GridItem widget={<WeatherWidget />} />
-            <GridItem widget={<MetroWidget />} />
+             <GridItem widget={<MetroWidget />} />
             <GridItem widget={<AlbumReviewWidget />} />
             <GridItem widget={<PhotoWidget photos={props.photos} />} />
             <GridItem widget={<CalendarWidget />} />
-            <GridItem widget={<LightsPage />} />
+            <GridItem widget={<LightsPage />} /> 
         </Grid >
     )
 }

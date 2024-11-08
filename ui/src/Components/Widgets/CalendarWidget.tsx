@@ -64,7 +64,7 @@ export default function CalendarWidget() {
 
     function CalendarIcon({ datestring }: { datestring: string }) {
         const date = new Date(Date.parse(datestring))
-        const day = date.getDate()
+        const day = date.toLocaleDateString("default", { day: 'numeric' })
         const month = date.toLocaleDateString("default", { month: 'long' })
         const weekday = date.toLocaleDateString("default", { weekday: 'long' });
         return (

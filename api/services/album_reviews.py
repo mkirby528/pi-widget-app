@@ -5,7 +5,6 @@ from logging import getLogger
 logger = getLogger("pi-app-api")
 
 REVIEW_TABLE_NAME = getenv("ALBUM_REVIEW_TABLE_NAME")
-logger.info(f"name: {REVIEW_TABLE_NAME}")
 
 dynamodb_resource = boto3.resource("dynamodb")
 review_table = dynamodb_resource.Table(REVIEW_TABLE_NAME)

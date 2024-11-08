@@ -16,6 +16,8 @@ import HomePage from './Components/HomePage';
 import axios from 'axios';
 import PhotoWidget from './Components/Widgets/PhotoWidget';
 import LightsPage from './Components/LightsPage';
+import FantasyFootballPage from './Components/FantasyFootballPage';
+import { Margin } from '@mui/icons-material';
 
 
 const theme = createTheme({
@@ -62,6 +64,23 @@ function App() {
     setOpen(newOpen);
   };
 
+  const Clock = () => {
+    const [date, setDate] = useState(new Date().toLocaleString([], { weekday: "long", month: "long", "day": "numeric", hour: "numeric", minute: "2-digit", second: "2-digit" }));
+    useEffect(() => {
+      const timerID = setInterval(() => tick(), 1000);
+      return () => {
+        clearInterval(timerID);
+      };
+    }, []);
+
+    const tick = () => {
+      const now = new Date()
+      setDate(now.toLocaleString([], { weekday: "long", month: "long", "day": "numeric", hour: "numeric", minute: "2-digit", second: "2-digit" }));
+    };
+
+    return <Typography variant='h5'>{date}</Typography>;
+  };
+
 
   const router = createBrowserRouter([
     {
@@ -78,9 +97,11 @@ function App() {
               >
                 <MenuIcon />
               </IconButton>
-              <Typography variant="h6" component="div">
+              <Typography variant="h5" component="div">
                 Matthew
               </Typography>
+              <div style={{ marginLeft: "auto" }}></div>
+              <Clock />
             </Toolbar>
           </AppBar>
           <TemporaryDrawer isDrawerOpen={isDrawerOpen} toggleDrawer={toggleDrawer} />
@@ -101,9 +122,14 @@ function App() {
         },
         {
           path: "/lights",
-          element: <LightsPage/>,
+          element: <LightsPage />,
           errorElement: <div>whoopsidoodle</div>
-        }
+        },
+        {
+          path: "/fantasy-football",
+          element: <FantasyFootballPage />,
+          errorElement: <div>whoopsidoodle</div>
+        },
 
       ],
     },
@@ -121,3 +147,7 @@ function App() {
 }
 
 export default App;
+function useCallback(arg0: () => void, arg1: undefined[]) {
+  throw new Error('Function not implemented.');
+}
+

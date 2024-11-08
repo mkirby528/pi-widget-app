@@ -12,6 +12,7 @@ def get_weather():
         response = requests.get(API_ENDPOINTS.OPEN_WEATHER)
         if response.status_code != 200:
             raise Exception(f"Bad response from Open Weather API. Status code {response.status_code}. Message: {response.text}")
+        print(response.json())
         return response.json()
 
     except Exception as error:

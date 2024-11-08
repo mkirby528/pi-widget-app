@@ -8,17 +8,17 @@ from pydantic import BaseModel, Field
 
 API_BASE_PATH = "/api"
 
-
 class PATHS():
-    HEALTH_CHECK = f"/api/health"
-    GET_WEATHER = f"/api/weather"
-    GET_METRO_TIMES = f"/api/metro"
-    GET_ALBUMS_REVIEWS = f"/api/album-reviews"
-    GET_GOOGLE_PHOTOS = f"/api/photos"
-    GET_CALENDAR_EVENTS = f"/api/calendar"
-    CONTROL_BEDROOM_LIGHTS = f"/api/smart-home/bedroom-lights"
-    CONTROL_LIVING_ROOM_LIGHTS = f"/api/smart-home/living-room-lights"
-
+    HEALTH_CHECK = f"{API_BASE_PATH}/health"
+    GET_WEATHER = f"{API_BASE_PATH}/weather"
+    GET_METRO_TIMES = f"{API_BASE_PATH}/metro"
+    GET_ALBUMS_REVIEWS = f"{API_BASE_PATH}/album-reviews"
+    GET_GOOGLE_PHOTOS = f"{API_BASE_PATH}/photos"
+    GET_CALENDAR_EVENTS = f"{API_BASE_PATH}/calendar"
+    CONTROL_BEDROOM_LIGHTS = f"{API_BASE_PATH}/smart-home/bedroom-lights"
+    CONTROL_LIVING_ROOM_LIGHTS = f"{API_BASE_PATH}/smart-home/living-room-lights"
+    GET_FANTASTY_FOOTBALL_SCORES=f"{API_BASE_PATH}/fantasy-football/get-scores"
+    GET_FANTASTY_FOOTBALL_PLAYER_COUNTS=f"{API_BASE_PATH}/fantasy-football/get-player-counts"
 
 @dataclass
 class OPEN_WEATHER_PARAMETERS():

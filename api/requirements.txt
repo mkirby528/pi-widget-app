@@ -4,3 +4,4 @@ boto3
 simplejson
 aws-lambda-powertools
 pydantic
+espn_api

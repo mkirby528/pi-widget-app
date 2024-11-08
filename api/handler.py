@@ -8,6 +8,7 @@ from services.album_reviews import get_random_reviews
 from services.google_photos import get_all_image_urls_for_album_id
 from services.google_calendar import get_calendar_events
 from services.home_assistant import control_lights
+from services.fantasy_football import get_fantasy_football_scores,get_player_counts
 from aws_lambda_powertools.event_handler import APIGatewayRestResolver, Response, content_types
 import logging
 from aws_lambda_powertools.event_handler.openapi.params import Query
@@ -69,6 +70,13 @@ def handle_control_bedroom_lights(settings: LightControlBody):
     control_lights(settings)
     return Response(status_code=204)
 
+@app.get(PATHS.GET_FANTASTY_FOOTBALL_SCORES)
+def handle_get_fantast_football_scores():
+    return get_fantasy_football_scores()
+
+@app.get(PATHS.GET_FANTASTY_FOOTBALL_PLAYER_COUNTS)
+def handle_get_fantast_football_scores():
+    return get_player_counts()
 
 @app.exception_handler(Exception)
 def handle_exception(error: Exception):
