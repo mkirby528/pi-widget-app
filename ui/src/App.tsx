@@ -17,7 +17,7 @@ import axios from 'axios';
 import PhotoWidget from './Components/Widgets/PhotoWidget';
 import LightsPage from './Components/LightsPage';
 import FantasyFootballPage from './Components/FantasyFootballPage';
-
+import SpeachRecognitonPage from './Components/SpeachRecognitionPage';
 
 const theme = createTheme({
   palette: {
@@ -144,6 +144,12 @@ function App() {
           element: <FantasyFootballPage />,
           errorElement: <div>whoopsidoodle</div>
         },
+        {
+          
+          path: "/speach",
+          element: <SpeachRecognitonPage />,
+          errorElement: <div>whoopsidoodle</div>
+        }
 
       ],
     },
