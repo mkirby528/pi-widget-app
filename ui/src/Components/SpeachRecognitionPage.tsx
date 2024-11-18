@@ -1,37 +1,67 @@
-import React from 'react';
-import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
+import React, { useState, useRef } from "react";
 
+const AudioRecorder = () => {
+    const [isRecording, setIsRecording] = useState(false);
+    const [audioURL, setAudioURL] = useState(null);
+    const mediaRecorderRef = useRef(null);
+    const audioChunksRef = useRef([]);
 
+    // Start recording
+    const startRecording = async () => {
+        try {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            const mediaRecorder = new MediaRecorder(stream);
 
-const Dictaphone = () => {
-    const {
-        transcript,
-        listening,
-        browserSupportsSpeechRecognition,
-        browserSupportsContinuousListening
-    } = useSpeechRecognition();
-    const startListening = () => SpeechRecognition.startListening();
+            mediaRecorder.ondataavailable = (event) => {
+                audioChunksRef.current.push(event.data);
+            };
 
-    if (!browserSupportsSpeechRecognition) {
-        return <span>Browser doesn't support speech recognition.</span>;
-    }
-    if (!browserSupportsContinuousListening) {
-        return <span>Browser doesn't support continuous speech recognition</span>
-    }
+            mediaRecorder.onstop = () => {
+                // Combine audio chunks into a Blob
+                const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
+                audioChunksRef.current = []; // Reset the chunks
+
+                // Create a URL for playback
+                const audioURL = URL.createObjectURL(audioBlob);
+                setAudioURL(audioURL);
+            };
+
+            mediaRecorderRef.current = mediaRecorder;
+            mediaRecorder.start();
+            setIsRecording(true);
+        } catch (error) {
+            console.error("Error starting recording:", error);
+        }
+    };
+
+    // Stop recording
+    const stopRecording = () => {
+        if (mediaRecorderRef.current) {
+            mediaRecorderRef.current.stop();
+            setIsRecording(false);
+        }
+    };
 
     return (
         <div>
-            <p>Microphone: {listening ? 'on' : 'off'}</p>
-            <button
-                onTouchStart={startListening}
-                onMouseDown={startListening}
-            >Press to talk</button>
-            <button
-                onTouchStart={SpeechRecognition.stopListening}
-                onMouseDown={SpeechRecognition.stopListening}
-            >Stop</button>
-            <p>{transcript}</p>
+            <h1>Audio Recorder</h1>
+            <button onClick={startRecording} disabled={isRecording}>
+                Start Recording
+            </button>
+            <button onClick={stopRecording} disabled={!isRecording}>
+                Stop Recording
+            </button>
+            <div>
+                <h2>Playback:</h2>
+                {audioURL && (
+                    <audio controls>
+                        <source src={audioURL} type="audio/wav" />
+                        Your browser does not support the audio element.
+                    </audio>
+                )}
+            </div>
         </div>
     );
 };
-export default Dictaphone;
+
+export default AudioRecorder;
