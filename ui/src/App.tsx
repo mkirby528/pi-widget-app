@@ -79,17 +79,18 @@ function App() {
     const now = new Date()
     const [date, setDate] = useState(`${formatterDate(now)} ${formatterTime(now)}`);
     useEffect(() => {
+      const tick = () => {
+        const now = new Date()
+        setDate(`${formatterDate(now)} ${formatterTime(now)}`);
+
+      };
       const timerID = setInterval(() => tick(), 1000);
       return () => {
         clearInterval(timerID);
       };
-    }, []);
+    }, [formatterDate,formatterTime]);
 
-    const tick = () => {
-      const now = new Date()
-      setDate(`${formatterDate(now)} ${formatterTime(now)}`);
 
-    };
 
     return <Typography variant='h5'>{date}</Typography>;
   };
