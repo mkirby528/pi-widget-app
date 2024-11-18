@@ -7,12 +7,16 @@ const Dictaphone = () => {
     const {
         transcript,
         listening,
-        browserSupportsSpeechRecognition
+        browserSupportsSpeechRecognition,
+        browserSupportsContinuousListening
     } = useSpeechRecognition();
     const startListening = () => SpeechRecognition.startListening({ continuous: true });
 
     if (!browserSupportsSpeechRecognition) {
         return <span>Browser doesn't support speech recognition.</span>;
+    }
+    if (!browserSupportsContinuousListening) {
+        return <span>Browser doesn't support continuous speech recognition</span>
     }
 
     return (
@@ -22,7 +26,7 @@ const Dictaphone = () => {
                 onTouchStart={startListening}
                 onMouseDown={startListening}
             >Press to talk</button>
-             <button
+            <button
                 onTouchStart={SpeechRecognition.stopListening}
                 onMouseDown={SpeechRecognition.stopListening}
             >Stop</button>
