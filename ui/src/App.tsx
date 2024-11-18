@@ -64,7 +64,20 @@ function App() {
   };
 
   const Clock = () => {
-    const [date, setDate] = useState(new Date().toLocaleString([], { weekday: "long", month: "long", "day": "numeric", hour: "numeric", minute: "2-digit", second: "2-digit" }));
+    const formatterDate = new Intl.DateTimeFormat('en-US', {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric',
+    }).format;
+
+    const formatterTime = new Intl.DateTimeFormat('en-US', {
+      hour: 'numeric',
+      minute: '2-digit',
+      second: '2-digit',
+    }).format;
+
+    const now = new Date()
+    const [date, setDate] = useState(`${formatterDate(now)} ${formatterTime(now)}`);
     useEffect(() => {
       const timerID = setInterval(() => tick(), 1000);
       return () => {
@@ -74,7 +87,8 @@ function App() {
 
     const tick = () => {
       const now = new Date()
-      setDate(now.toLocaleString([], { weekday: "long", month: "long", "day": "numeric", hour: "numeric", minute: "2-digit", second: "2-digit" }));
+      setDate(`${formatterDate(now)} ${formatterTime(now)}`);
+
     };
 
     return <Typography variant='h5'>{date}</Typography>;
