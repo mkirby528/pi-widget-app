@@ -1,16 +1,32 @@
-import React from "react";
-import { useVoiceToText } from "react-speakup";
+import React from 'react';
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 
-export default function SpeachRecognitonPage() {
-    const { startListening, stopListening, transcript, reset } = useVoiceToText();
+const Dictaphone = () => {
+    const {
+        transcript,
+        listening,
+        resetTranscript,
+        browserSupportsSpeechRecognition
+    } = useSpeechRecognition();
 
-    return (
-        <div>
-            <button onClick={startListening}>Start Listening</button>
-            <button onClick={stopListening}>Stop Listening</button>
-            <button onClick={reset}>Reset Transcript</button>
-            <span>{transcript}</span>
-        </div>
-    );
+    if (!browserSupportsSpeechRecognition) {
+        return <span>Browser doesn't support speech recognition.</span>;
+    }
+
+    if (!browserSupportsSpeechRecognition) {
+        return <div>"Not supported"</div>
+    }
+    else {
+        return (
+
+            <div>
+                <p>Microphone: {listening ? 'on' : 'off'}</p>
+                <button onClick={SpeechRecognition.startListening}>Start</button>
+                <button onClick={SpeechRecognition.stopListening}>Stop</button>
+                <button onClick={resetTranscript}>Reset</button>
+                <p>{transcript}</p>
+            </div>
+        );
+    }
 };
-
+export default Dictaphone;
