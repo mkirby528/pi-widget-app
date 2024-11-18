@@ -60,6 +60,8 @@ function App() {
   }, []);
 
   const toggleDrawer = (newOpen: boolean) => () => {
+    var audio = new Audio('assets/mario-coin.mp3');
+    audio.play()
     setOpen(newOpen);
   };
 
