@@ -39,10 +39,13 @@ const AudioRecorder = () => {
     const sendAudioToBackend = async () => {
         if (audioBlob) {
             const formData = new FormData();
-            formData.append('audio', audioBlob, 'audio.wav');
+            formData.append('audio_file', audioBlob, 'audio.wav');
+
+            console.log('Sending audio file:', audioBlob);
+            console.log('FormData contents:', formData);
 
             try {
-                const response = await axios.post('api/transcribe-audio', formData, {
+                const response = await axios.post('/api/transcribe-audio', formData, {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 });
                 console.log('Transcription response:', response.data);
