@@ -1,44 +1,54 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef } from 'react';
+import axios from 'axios';
 
 const AudioRecorder = () => {
     const [isRecording, setIsRecording] = useState(false);
-    const [audioURL, setAudioURL] = useState(null);
-    const mediaRecorderRef = useRef(null);
-    const audioChunksRef = useRef([]);
+    const [audioUrl, setAudioUrl] = useState(null);
+    const [audioBlob, setAudioBlob] = useState(null);
+    const mediaRecorder = useRef(null);
+    const audioChunks = useRef([]);
 
-    // Start recording
-    const startRecording = async () => {
-        try {
-            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            const mediaRecorder = new MediaRecorder(stream);
-
-            mediaRecorder.ondataavailable = (event) => {
-                audioChunksRef.current.push(event.data);
-            };
-
-            mediaRecorder.onstop = () => {
-                // Combine audio chunks into a Blob
-                const audioBlob = new Blob(audioChunksRef.current, { type: "audio/wav" });
-                audioChunksRef.current = []; // Reset the chunks
-
-                // Create a URL for playback
-                const audioURL = URL.createObjectURL(audioBlob);
-                setAudioURL(audioURL);
-            };
-
-            mediaRecorderRef.current = mediaRecorder;
-            mediaRecorder.start();
-            setIsRecording(true);
-        } catch (error) {
-            console.error("Error starting recording:", error);
-        }
+    const startRecording = () => {
+        setIsRecording(true);
+        audioChunks.current = [];
+        navigator.mediaDevices
+            .getUserMedia({ audio: true })
+            .then((stream) => {
+                mediaRecorder.current = new MediaRecorder(stream);
+                mediaRecorder.current.ondataavailable = (event) => {
+                    audioChunks.current.push(event.data);
+                };
+                mediaRecorder.current.onstop = () => {
+                    const audioBlob = new Blob(audioChunks.current, { type: 'audio/wav' });
+                    setAudioBlob(audioBlob);
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    setAudioUrl(audioUrl);
+                };
+                mediaRecorder.current.start();
+            })
+            .catch((err) => {
+                console.error('Error accessing microphone:', err);
+            });
     };
 
-    // Stop recording
     const stopRecording = () => {
-        if (mediaRecorderRef.current) {
-            mediaRecorderRef.current.stop();
-            setIsRecording(false);
+        setIsRecording(false);
+        mediaRecorder.current.stop();
+    };
+
+    const sendAudioToBackend = async () => {
+        if (audioBlob) {
+            const formData = new FormData();
+            formData.append('audio', audioBlob, 'audio.wav');
+
+            try {
+                const response = await axios.post('api/transcribe-audio', formData, {
+                    headers: { 'Content-Type': 'multipart/form-data' },
+                });
+                console.log('Transcription response:', response.data);
+            } catch (error) {
+                console.error('Error sending audio to backend:', error);
+            }
         }
     };
 
@@ -51,15 +61,10 @@ const AudioRecorder = () => {
             <button onClick={stopRecording} disabled={!isRecording}>
                 Stop Recording
             </button>
-            <div>
-                <h2>Playback:</h2>
-                {audioURL && (
-                    <audio controls>
-                        <source src={audioURL} type="audio/wav" />
-                        Your browser does not support the audio element.
-                    </audio>
-                )}
-            </div>
+            <button onClick={sendAudioToBackend} disabled={!audioBlob}>
+                Send Audio to Backend
+            </button>
+            {audioUrl && <audio controls src={audioUrl}></audio>}
         </div>
     );
 };
