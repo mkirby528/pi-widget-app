@@ -1,5 +1,6 @@
 env:
   OPEN_WEATHER_API_KEY: ${{secrets.OPEN_WEATHER_API_KEY}}
+  OPENAI_API_KEY: ${{secrets.OPENAI_API_KEY}}
   WMATA_API_KEY: ${{secrets.WMATA_API_KEY}}
   GOOGLE_CLIENT_ID: ${{secrets.GOOGLE_CLIENT_ID}}
   GOOGLE_CLIENT_SECRET: ${{secrets.GOOGLE_CLIENT_SECRET}}
@@ -34,7 +35,7 @@ jobs:
 
 
 # sam deploy
-      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --parameter-overrides OpenWeatherApiKey=${OPEN_WEATHER_API_KEY}  MetroApiKey=${WMATA_API_KEY}  GoogleClientId=${GOOGLE_CLIENT_ID} GoogleClientSecret=${GOOGLE_CLIENT_SECRET}  HomeAssistantToken=${HOME_ASSISTANT_TOKEN} HomeAssistantHost=${HOME_ASSISTANT_HOST}    \
+      - run: sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --parameter-overrides OpenWeatherApiKey=${OPENAI_API_KEY} OpenAIApiKey=${OPEN_WEATHER_API_KEY}  MetroApiKey=${WMATA_API_KEY}  GoogleClientId=${GOOGLE_CLIENT_ID} GoogleClientSecret=${GOOGLE_CLIENT_SECRET}  HomeAssistantToken=${HOME_ASSISTANT_TOKEN} HomeAssistantHost=${HOME_ASSISTANT_HOST}    \
       - run: npm install --prefix ui
       - run: npm run deploy --prefix ui && aws cloudfront create-invalidation --distribution-id E1CPX8JAUIPVTM --paths "/*"
 

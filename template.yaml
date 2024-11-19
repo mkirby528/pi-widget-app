@@ -108,6 +108,7 @@ Resources:
       Environment:
         Variables:
           OPEN_WEATHER_API_KEY: !Ref OpenWeatherApiKey
+          OPENAI_API_KEY: !Ref OpenAIApiKey
           WMATA_API_KEY: !Ref MetroApiKey
           ALBUM_REVIEW_TABLE_NAME: music_reviews
           GOOGLE_CLIENT_ID:  !Ref GoogleClientId
