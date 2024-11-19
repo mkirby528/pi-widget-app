@@ -132,6 +132,10 @@ Parameters:
     Type: String
     Default: ""
     NoEcho: true
+  OpenAIApiKey:
+    Type: String
+    Default: ""
+    NoEcho: true
   MetroApiKey:
     Type: String
     Default: ""
