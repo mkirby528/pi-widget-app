@@ -5,3 +5,5 @@ simplejson
 aws-lambda-powertools
 pydantic
 espn_api
+openai
+requests_toolbelt

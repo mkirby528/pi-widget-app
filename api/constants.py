@@ -19,7 +19,7 @@ class PATHS():
     CONTROL_LIVING_ROOM_LIGHTS = f"{API_BASE_PATH}/smart-home/living-room-lights"
     GET_FANTASTY_FOOTBALL_SCORES=f"{API_BASE_PATH}/fantasy-football/get-scores"
     GET_FANTASTY_FOOTBALL_PLAYER_COUNTS=f"{API_BASE_PATH}/fantasy-football/get-player-counts"
-
+    TRANSCRIBE_AUDIO=f"{API_BASE_PATH}/transcribe-audio"
 @dataclass
 class OPEN_WEATHER_PARAMETERS():
     LATTITUDE = "38.892191877"  # Arlington, VA

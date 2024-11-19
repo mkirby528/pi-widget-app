@@ -1,3 +1,4 @@
+import json
 from typing import Annotated, Optional
 from dotenv import load_dotenv, find_dotenv
 from constants import PATHS, LightControlBody
@@ -6,13 +7,16 @@ from services.wmata import get_next_trains
 from services.album_reviews import get_random_reviews
 from services.google_photos import get_all_image_urls_for_album_id
 from services.google_calendar import get_calendar_events
+from services.open_ai import transcribe_audio,generate_response_from_transcript
 from services.home_assistant import control_lights
 # from services.fantasy_football import get_fantasy_football_scores,get_player_counts
 from aws_lambda_powertools.event_handler import APIGatewayRestResolver, Response, content_types
 import logging
 from aws_lambda_powertools.event_handler.openapi.params import Query
 from aws_lambda_powertools.event_handler.exceptions import NotFoundError
-
+import base64
+from requests_toolbelt.multipart import decoder
+import os
 
 load_dotenv(find_dotenv())
 
@@ -68,6 +72,62 @@ def handle_control_bedroom_lights(settings: LightControlBody):
     settings.config.entity_id = "light.bedroom_lights"
     control_lights(settings)
     return Response(status_code=204)
+
+
+@app.post(PATHS.TRANSCRIBE_AUDIO)
+def handle_transcribe_audio():
+    try:
+        # Extract content-type and body from the event
+        content_type = app.current_event.headers.get(
+            "content-type") or app.current_event.headers.get("Content-Type")
+        if not content_type:
+            raise Exception("Missing Content-Type header")
+
+        # Decode the body
+        body = app.current_event.body
+        if app.current_event.is_base64_encoded:
+            body = base64.b64decode(body)
+
+        # Parse multipart form data
+        multipart_data = decoder.MultipartDecoder(body, content_type)
+
+        # Extract the audio file from the form data
+        audio_file_bytes = None
+        for part in multipart_data.parts:
+            if part.headers[b"Content-Disposition"]:
+                disposition = part.headers[b"Content-Disposition"].decode(
+                    "utf-8")
+                if 'name="audio_file"' in disposition:
+                    audio_file_bytes = part.content
+                    break
+
+        if not audio_file_bytes:
+            raise Exception(
+                "No 'audio_file' field found in the form data")
+
+        # Write the audio file to /tmp directory
+        tmp_file_path = "/tmp/uploaded_audio.wav"
+        with open(tmp_file_path, "wb") as tmp_file:
+            tmp_file.write(audio_file_bytes)
+
+        # Transcribe the audio file
+        transcription = transcribe_audio(tmp_file_path)
+        response = generate_response_from_transcript(transcription)
+        # Clean up the temporary file
+        if os.path.exists(tmp_file_path):
+            os.remove(tmp_file_path)
+
+        # Return the result
+        return {
+            "statusCode": 200,
+            "body": json.dumps({"response": response})
+        }
+    except Exception as e:
+        return {
+            "statusCode": 500,
+            "body": json.dumps({"error": str(e)})
+        }
+
 
 # @app.get(PATHS.GET_FANTASTY_FOOTBALL_SCORES)
 # def handle_get_fantast_football_scores():
