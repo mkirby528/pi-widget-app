@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 // POST endpoint to handle text-to-speech
 app.post('/speak', (req, res) => {
     const { text } = req.body;
-
+    console.log("Got request")
     if (!text) {
         return res.status(400).json({ error: 'Text is required for speech synthesis' });
     }
