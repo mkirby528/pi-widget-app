@@ -116,6 +116,7 @@ Resources:
           GOOGLE_REFRESH_TOKEN: !Ref GoogleRefreshToken
           HOME_ASSISTANT_HOST: !Ref HomeAssistantHost
           HOME_ASSISTANT_TOKEN: !Ref HomeAssistantToken
+          PI_NGROK_HOST: !Ref PiNgrokHost
 
           ENV: PROD
       Events:
@@ -160,6 +161,11 @@ Parameters:
     Type: String
     Default: ""
     NoEcho: true
+  PiNgrokHost:
+    Type: String
+    Default: ""
+    NoEcho: true
+    
     
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function

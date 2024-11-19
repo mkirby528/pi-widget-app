@@ -20,6 +20,8 @@ class PATHS():
     GET_FANTASTY_FOOTBALL_SCORES=f"{API_BASE_PATH}/fantasy-football/get-scores"
     GET_FANTASTY_FOOTBALL_PLAYER_COUNTS=f"{API_BASE_PATH}/fantasy-football/get-player-counts"
     TRANSCRIBE_AUDIO=f"{API_BASE_PATH}/transcribe-audio"
+    SPEAK=f"{API_BASE_PATH}/speak"
+
 @dataclass
 class OPEN_WEATHER_PARAMETERS():
     LATTITUDE = "38.892191877"  # Arlington, VA
@@ -39,12 +41,9 @@ class API_ENDPOINTS():
     GOOGLE_CALENDAR = "https://www.googleapis.com/calendar/v3/calendars/{calendar_id}/events"
 
 # Home Assistant
-
-
 class LightStateEnum(str, Enum):
     ON = 'ON'
     OFF = 'OFF'
-
 
 class LightModeEnum(str, Enum):
     FULL = 'FULL'
@@ -76,3 +75,6 @@ class LightModeConfigurations(Enum):
     HALF = HomeAssistantLightConfig(brightness_pct=50, kelvin=2000)
     DIM = HomeAssistantLightConfig(brightness_pct=10, kelvin=2000)
     OFF = HomeAssistantLightConfig(brightness_pct=0)
+
+class SpeakEndpointBody(BaseModel):
+    text: str

@@ -11,15 +11,18 @@ app.post('/speak', (req, res) => {
     const { text } = req.body;
     console.log("Got request")
     if (!text) {
+        console.log("no text")
         return res.status(400).json({ error: 'Text is required for speech synthesis' });
     }
 
     // Use eSpeak-ng to speak the text
     exec(`espeak-ng "${text}"`, (error, stdout, stderr) => {
         if (error) {
+            console.log(error)
             return res.status(500).json({ error: `eSpeak-ng error: ${stderr || error.message}` });
         }
         // Successful execution
+        console.log("success")
         res.json({ message: 'Speech synthesis started' });
     });
 });

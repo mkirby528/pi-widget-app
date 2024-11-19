@@ -7,7 +7,6 @@ const AudioRecorder = () => {
     const [audioBlob, setAudioBlob] = useState(null);
     const mediaRecorder = useRef(null);
     const audioChunks = useRef([]);
-    const speechSynthesis = window.speechSynthesis;
 
     const startRecording = () => {
         setIsRecording(true);
@@ -46,22 +45,15 @@ const AudioRecorder = () => {
                 const response = await axios.post('/api/transcribe-audio', formData, {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 });
-                const transcription = response.data; // Assuming your API returns text
-                speak(transcription); // Call to Web Speech API
+                const text = JSON.parse(response.data.body).response
+                console.log(text)
+                axios.post("/api/speak", {text} )
             } catch (error) {
                 console.error('Error sending audio to backend:', error);
             }
         }
     };
 
-    const speak = (text) => {
-        if ('speechSynthesis' in window) {
-            const utterance = new SpeechSynthesisUtterance(text);
-            speechSynthesis.speak(utterance);
-        } else {
-            console.error('Speech Synthesis API is not supported in this browser.');
-        }
-    };
 
     return (
         <div>

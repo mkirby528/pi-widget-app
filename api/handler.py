@@ -1,13 +1,14 @@
 import json
 from typing import Annotated, Optional
 from dotenv import load_dotenv, find_dotenv
-from constants import PATHS, LightControlBody
+from constants import PATHS, LightControlBody, SpeakEndpointBody
 from services.open_weather import get_weather
 from services.wmata import get_next_trains
 from services.album_reviews import get_random_reviews
 from services.google_photos import get_all_image_urls_for_album_id
 from services.google_calendar import get_calendar_events
-from services.open_ai import transcribe_audio,generate_response_from_transcript
+from services.open_ai import transcribe_audio, generate_response_from_transcript
+from services.speach import speak
 from services.home_assistant import control_lights
 # from services.fantasy_football import get_fantasy_football_scores,get_player_counts
 from aws_lambda_powertools.event_handler import APIGatewayRestResolver, Response, content_types
@@ -17,6 +18,7 @@ from aws_lambda_powertools.event_handler.exceptions import NotFoundError
 import base64
 from requests_toolbelt.multipart import decoder
 import os
+
 
 load_dotenv(find_dotenv())
 
@@ -71,6 +73,13 @@ def handle_control_bedroom_lights(settings: LightControlBody):
 def handle_control_bedroom_lights(settings: LightControlBody):
     settings.config.entity_id = "light.bedroom_lights"
     control_lights(settings)
+    return Response(status_code=204)
+
+
+@app.post(PATHS.SPEAK)
+def handle_speak():
+    body = app.current_event.json_body
+    speak(body.get("text"))
     return Response(status_code=204)
 
 
