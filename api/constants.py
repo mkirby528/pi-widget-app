@@ -20,6 +20,7 @@ class PATHS():
     GET_FANTASTY_FOOTBALL_SCORES=f"{API_BASE_PATH}/fantasy-football/get-scores"
     GET_FANTASTY_FOOTBALL_PLAYER_COUNTS=f"{API_BASE_PATH}/fantasy-football/get-player-counts"
     TRANSCRIBE_AUDIO=f"{API_BASE_PATH}/transcribe-audio"
+    TEXT_TO_SPSEACH=f"{API_BASE_PATH}/text-to-speach"
     SPEAK=f"{API_BASE_PATH}/speak"
 
 @dataclass

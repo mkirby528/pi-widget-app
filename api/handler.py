@@ -1,7 +1,9 @@
 import json
 from typing import Annotated, Optional
 from dotenv import load_dotenv, find_dotenv
-from constants import PATHS, LightControlBody, SpeakEndpointBody
+from pydantic import BaseModel
+from constants import PATHS, LightControlBody
+from services.polly import generate_speech
 from services.open_weather import get_weather
 from services.wmata import get_next_trains
 from services.album_reviews import get_random_reviews
@@ -30,6 +32,7 @@ logging.basicConfig(
 logger = logging.getLogger("pi-app-api")
 
 app = APIGatewayRestResolver(enable_validation=True)
+
 
 
 @app.get(PATHS.HEALTH_CHECK)
@@ -75,6 +78,25 @@ def handle_control_bedroom_lights(settings: LightControlBody):
     control_lights(settings)
     return Response(status_code=204)
 
+
+# Pydantic model for validation
+class SpeakRequestBody(BaseModel):
+    text: str
+    voice_id: Optional[str] = 'Joanna'  # Optional voice ID, default to 'Joanna'
+
+@app.post(PATHS.TEXT_TO_SPSEACH)
+def handle_text_to_speech(body: SpeakRequestBody):
+    try:
+        print(f"handling tts request for {body}")
+        # Call the Polly service to generate speech from text
+        audio_url = generate_speech(body.text, body.voice_id)
+        return audio_url
+    except Exception as e:
+        logger.error(f"Error generating speech: {str(e)}")
+        return Response(
+            status_code=500,
+            body={"error": "Failed to generate speech", "message": str(e)}
+        )
 
 @app.post(PATHS.SPEAK)
 def handle_speak():

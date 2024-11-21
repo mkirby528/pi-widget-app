@@ -45,16 +45,33 @@ const AudioRecorder = () => {
                 const response = await axios.post('/api/transcribe-audio', formData, {
                     headers: { 'Content-Type': 'multipart/form-data' },
                 });
-                const text = JSON.parse(response.data.body).response
-                console.log(text)
-                const utterance = new SpeechSynthesisUtterance(text)
-                window.speechSynthesis.speak(utterance)
+                const text = JSON.parse(response.data.body).response;
+                console.log('Transcribed Text:', text);
+
+                // Send request to generate speech using Polly
+                const speechResponse = await axios.post('/api/text-to-speach', {
+                    text,
+                    voice_id: 'Joanna',  // Choose your Polly voice here
+                });
+
+                const audioUrl = speechResponse.data.audio_url;  // Assuming the backend returns the signed URL
+                console.log("Generated audio URL:", audioUrl); // Log URL
+                setAudioUrl(audioUrl); // Set the URL to the audio file from S3
+
             } catch (error) {
                 console.error('Error sending audio to backend:', error);
             }
         }
     };
 
+    const playAudio = () => {
+        const audioElement = document.querySelector('audio');
+        if (audioElement) {
+            audioElement.play().catch((error) => {
+                console.error("Error playing audio:", error);
+            });
+        }
+    };
 
     return (
         <div>
@@ -68,7 +85,13 @@ const AudioRecorder = () => {
             <button onClick={sendAudioToBackend} disabled={!audioBlob}>
                 Send Audio to Backend
             </button>
-            {audioUrl && <audio controls src={audioUrl}></audio>}
+            {audioUrl && (
+                <div>
+                    <audio controls src={audioUrl} />
+                    <button onClick={playAudio}>Play Audio</button>
+                    <p>Audio URL: {audioUrl}</p> {/* Display URL for debugging */}
+                </div>
+            )}
         </div>
     );
 };
