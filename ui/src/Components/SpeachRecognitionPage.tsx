@@ -47,7 +47,8 @@ const AudioRecorder = () => {
                 });
                 const text = JSON.parse(response.data.body).response
                 console.log(text)
-                axios.post("/api/speak", {text} )
+                const utterance = new SpeechSynthesisUtterance(text)
+                window.speechSynthesis.speak(utterance)
             } catch (error) {
                 console.error('Error sending audio to backend:', error);
             }
