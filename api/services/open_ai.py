@@ -41,11 +41,15 @@ def generate_response_from_transcript(transcript):
         gpt_response = client.chat.completions.create(
             model="gpt-4o-mini",  # You can use any available GPT model
             messages=[
-                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "system", "content": "You are the voice assistant for a smart home system \
+                 intended to replace a google home. keep in mimd that you will be speaking out your \
+                  answers so don't be too wordy. Be as honest and truthful as you can and do not \
+                 hallucinate. Feel free to use variety in the way that you answer so long as it is the \
+                 truth, not a lie, and not deceptive in any way shape or form. Feel free to have fun or be funny sometimes too."},
                 {"role": "user", "content": transcript}
             ],
             max_tokens=150,  # You can adjust this value based on your needs
-            temperature=0.7  # Adjust creativity level
+            temperature=0.8  # Adjust creativity level
         )
 
         # Return the generated response text
@@ -54,4 +58,3 @@ def generate_response_from_transcript(transcript):
     except Exception as e:
         # Catch any other unexpected errors
         return f"Unexpected error while generating response: {str(e)}"
-
