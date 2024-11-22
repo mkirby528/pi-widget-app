@@ -1,11 +1,11 @@
 import Grid from '@mui/material/Unstable_Grid2';
 import Box from '@mui/material/Box';
-import WeatherWidget from './Widgets/Weather';
-import MetroWidget from './Widgets/Metro';
-import AlbumReviewWidget from "./Widgets/AlbumReview"
-import PhotoWidget from './Widgets/PhotoWidget';
-import CalendarWidget from './Widgets/CalendarWidget';
-import LightsPage from './LightsPage';
+import WeatherWidget from '../Widgets/Weather';
+import MetroWidget from '../Widgets/Metro';
+import AlbumReviewWidget from "../Widgets/AlbumReview"
+import PhotoWidget from '../Widgets/PhotoWidget';
+import CalendarWidget from '../Widgets/CalendarWidget';
+import LightsPage from '..//LightsPage';
 
 function GridItem({ widget }) {
     return (

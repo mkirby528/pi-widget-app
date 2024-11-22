@@ -12,12 +12,12 @@ import {
 
 import { useEffect, useState } from 'react';
 import TemporaryDrawer from "./Components/Drawer"
-import HomePage from './Components/HomePage';
+import HomePage from './Components/Pages/HomePage';
 import axios from 'axios';
 import PhotoWidget from './Components/Widgets/PhotoWidget';
 import LightsPage from './Components/LightsPage';
-import FantasyFootballPage from './Components/FantasyFootballPage';
-import SpeachRecognitonPage from './Components/SpeachRecognitionPage';
+import FantasyFootballPage from './Components/Pages/FantasyFootballPage';
+import SpeachRecognitonPage from './Components/Pages/AudioRecorder';
 
 const theme = createTheme({
   palette: {
