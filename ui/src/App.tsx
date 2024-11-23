@@ -17,7 +17,7 @@ import axios from 'axios';
 import PhotoWidget from './Components/Widgets/PhotoWidget';
 import LightsPage from './Components/LightsPage';
 import FantasyFootballPage from './Components/Pages/FantasyFootballPage';
-import SpeachRecognitonPage from './Components/Pages/AudioRecorder';
+import AudioRecorder from './Components/Pages/AudioRecorder';
 
 const theme = createTheme({
   palette: {
@@ -101,7 +101,7 @@ function App() {
       element: (
         <>
           <AppBar position="sticky" sx={{ height: '5vh' }} >
-            <Toolbar variant="dense" sx={{ minHeight: "0%" }} >
+            <Toolbar variant="dense" sx={{ minHeight: "0%"  }} >
               <IconButton
                 onClick={toggleDrawer(true)}
                 edge="start"
@@ -114,6 +114,7 @@ function App() {
               <Typography variant="h5" component="div">
                 Matthew
               </Typography>
+              <AudioRecorder/>
               <div style={{ marginLeft: "auto" }}></div>
               <Clock />
             </Toolbar>
@@ -142,12 +143,6 @@ function App() {
         {
           path: "/fantasy-football",
           element: <FantasyFootballPage />,
-          errorElement: <div>whoopsidoodle</div>
-        },
-        {
-          
-          path: "/speach",
-          element: <SpeachRecognitonPage />,
           errorElement: <div>whoopsidoodle</div>
         }
 

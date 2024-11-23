@@ -80,22 +80,6 @@ export default function TemporaryDrawer(props: any) {
                 }}>
                 Fantasy Football
             </Box>
-            <Box
-                onClick={() => {
-                    navigate('/speach');
-                }}
-                sx={{
-                    height: "20%",
-                    backgroundColor: "#7CB9E8",
-                    m: 1,
-                    width: "80%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center"
-
-                }}>
-                Speach
-            </Box>
         </Drawer>
 
     );

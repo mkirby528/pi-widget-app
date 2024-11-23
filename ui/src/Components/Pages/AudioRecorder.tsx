@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 
+
 const AudioRecorder = () => {
     const [isRecording, setIsRecording] = useState(false);
     const mediaRecorder = useRef(null);
@@ -61,15 +62,13 @@ const AudioRecorder = () => {
     };
 
     return (
-        <div>
-            <h1>Audio Recorder</h1>
-            <button onClick={startRecording} disabled={isRecording}>
+        <div style={{ margin: "1em", display: 'flex', flexDirection: "row", height: '80%' }}>
+            <button style={{ height: '90%' }} onClick={startRecording} disabled={isRecording}>
                 Start Recording
             </button>
-            <button onClick={stopRecording} disabled={!isRecording}>
+            <button style={{ height: '90%' }} onClick={stopRecording} disabled={!isRecording}>
                 Stop Recording
-            </button>
-        </div>
+            </button></div>
     );
 };
 
