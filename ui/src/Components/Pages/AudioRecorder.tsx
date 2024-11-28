@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import axios from 'axios';
 
 
@@ -6,6 +6,7 @@ const AudioRecorder = () => {
     const [isRecording, setIsRecording] = useState(false);
     const mediaRecorder = useRef(null);
     const audioChunks = useRef([]);
+
 
     const startRecording = () => {
         setIsRecording(true);
@@ -23,7 +24,7 @@ const AudioRecorder = () => {
                     formData.append('audio_file', audioBlob, 'audio.wav');
 
                     try {
-                        // Send the audio to the backend
+                        // Send the audio to the backend for transcription
                         const response = await axios.post('/api/transcribe-audio', formData, {
                             headers: { 'Content-Type': 'multipart/form-data' },
                         });
@@ -33,10 +34,10 @@ const AudioRecorder = () => {
                         // Send text to Polly for speech synthesis
                         const speechResponse = await axios.post('/api/text-to-speach', {
                             text,
-                            voice_id: 'Joanna', // Adjust the Polly voice here
+                            voice_id: 'Joanna', 
                         });
                         console.log(response.data)
-                        const audioUrl = speechResponse.data.audio_url; // Assume backend returns signed URL
+                        const audioUrl = speechResponse.data.audio_url; 
 
                         // Play audio automatically
                         const audioElement = new Audio(audioUrl);

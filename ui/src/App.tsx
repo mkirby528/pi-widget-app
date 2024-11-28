@@ -16,7 +16,6 @@ import HomePage from './Components/Pages/HomePage';
 import axios from 'axios';
 import PhotoWidget from './Components/Widgets/PhotoWidget';
 import LightsPage from './Components/LightsPage';
-import FantasyFootballPage from './Components/Pages/FantasyFootballPage';
 import AudioRecorder from './Components/Pages/AudioRecorder';
 
 const theme = createTheme({
@@ -139,13 +138,7 @@ function App() {
           path: "/lights",
           element: <LightsPage />,
           errorElement: <div>whoopsidoodle</div>
-        },
-        {
-          path: "/fantasy-football",
-          element: <FantasyFootballPage />,
-          errorElement: <div>whoopsidoodle</div>
         }
-
       ],
     },
   ]);

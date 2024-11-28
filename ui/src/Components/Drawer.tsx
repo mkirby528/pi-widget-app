@@ -2,85 +2,55 @@ import { Box } from '@mui/material';
 import Drawer from '@mui/material/Drawer';
 import { useNavigate } from 'react-router-dom';
 
-export default function TemporaryDrawer(props: any) {
-    const navigate = useNavigate()
+interface TemporaryDrawerProps {
+    isDrawerOpen: boolean;
+    toggleDrawer: (open: boolean) => () => void;
+}
+
+export default function TemporaryDrawer({ isDrawerOpen, toggleDrawer }: TemporaryDrawerProps) {
+    const navigate = useNavigate();
+
+    const navItems = [
+        { label: 'Home', path: '/', color: '#72A0C1' },
+        { label: 'Photos', path: '/photos', color: '#7CB9E8' },
+        { label: 'Lights', path: '/lights', color: '#7CB9E8' }
+    ];
+
+    const boxStyle = {
+        height: `${90 / navItems.length}%`,
+        m: 1,
+        width: '80%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        cursor: 'pointer',
+    };
 
     return (
-        <Drawer PaperProps={{
-            sx: {
-                width: "40%",
-                display: 'flex',
-                flexDirection: "center",
-                justifyContent: "start",
-                alignItems: "center"
-            },
-        }}
-            variant='temporary' open={props.isDrawerOpen} onClose={props.toggleDrawer(false)}>
-            <Box
-                onClick={() => {
-                    navigate('/');
-                }}
-                sx={{
-                    height: "20%",
-                    m: 1,
-                    backgroundColor: "#72A0C1",
-                    width: "80%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center"
-
-                }}>
-                Home
-            </Box>
-            <Box
-                onClick={() => {
-                    navigate('/photos');
-                }}
-                sx={{
-                    height: "20%",
-                    backgroundColor: "#7CB9E8",
-                    m: 1,
-                    width: "80%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center"
-
-                }}>
-                Photos
-            </Box>
-            <Box
-                onClick={() => {
-                    navigate('/lights');
-                }}
-                sx={{
-                    height: "20%",
-                    backgroundColor: "#7CB9E8",
-                    m: 1,
-                    width: "80%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center"
-
-                }}>
-                Lights
-            </Box>
-            <Box
-                onClick={() => {
-                    navigate('/fantasy-football');
-                }}
-                sx={{
-                    height: "20%",
-                    backgroundColor: "#7CB9E8",
-                    m: 1,
-                    width: "80%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center"
-
-                }}>
-                Fantasy Football
-            </Box>
+        <Drawer
+            PaperProps={{
+                sx: {
+                    width: '40%',
+                    hegiht: '100%',
+                    display: 'flex',
+                    flexDirection: 'column', // Fixes flex direction
+                    alignItems: 'center',
+                    justifyContent: 'start',
+                },
+            }}
+            variant="temporary"
+            open={isDrawerOpen}
+            onClose={toggleDrawer(false)}
+        >
+            {navItems.map(({ label, path, color }) => (
+                <Box
+                    key={label}
+                    onClick={() => navigate(path)}
+                    sx={{ ...boxStyle, backgroundColor: color }}
+                >
+                    {label}
+                </Box>
+            ))}
         </Drawer>
-
     );
 }
